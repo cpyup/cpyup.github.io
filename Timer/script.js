@@ -94,3 +94,102 @@ function resetClockDisplay() {
     clockDisplay.classList.remove('shrink', 'fade');
 }
 
+// JS ADDED FROM TIMER.HTML
+// Dropdown Menu Toggling
+document.getElementById("menuIcon").addEventListener("click", function () {
+    // Check if the element with ID 'timerDisplay' is present on the page
+    var checkfortimer = document.getElementById('timerDisplay');
+
+    if (checkfortimer) {
+        document.body.removeChild(checkfortimer);
+        resetClockDisplay();
+    } else {
+        // Toggle the dropdown menu if 'timerDisplay' does not exist
+        var dropdownMenu = document.getElementById("dropdownMenu");
+        if (dropdownMenu.style.display === "block") {
+            dropdownMenu.style.display = "none";
+        } else {
+            dropdownMenu.style.display = "block";
+        }
+    }
+});
+
+window.onclick = function (event) {
+    if (!event.target.matches('#menuIcon')) {
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        for (var i = 0; i < dropdowns.length; i++) {
+            var openDropdown = dropdowns[i];
+            if (openDropdown.style.display === "block") {
+                openDropdown.style.display = "none";
+            }
+        }
+    }
+}
+
+// Fullscreen Button Functionality
+function clickImg(img) {
+    if (isDocumentInFullScreenMode()) {
+        closeFullscreen();
+    } else {
+        openFullscreen();
+    }
+}
+
+function isDocumentInFullScreenMode() {
+    return document.fullscreenElement !== null;
+}
+
+var elem = document.documentElement;
+
+function openFullscreen() {
+    if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+    } else if (elem.mozRequestFullScreen) {
+        elem.mozRequestFullScreen();
+    } else if (elem.webkitRequestFullscreen) {
+        elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) {
+        elem.msRequestFullscreen();
+    }
+}
+
+function closeFullscreen() {
+    if (document.exitFullscreen) {
+        document.exitFullscreen();
+    } else if (document.mozCancelFullScreen) {
+        document.mozCancelFullScreen();
+    } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+    } else if (document.msExitFullscreen) {
+        document.msExitFullscreen();
+    }
+}
+
+// Hiding UI Icons With Inactivity
+const fullscreenIcon = document.getElementById('fullscreenicon');
+            const timerIcon = document.getElementById('menuIcon');
+			const dropmenuContent = document.getElementById("dropdownMenu");
+            let inactivityTimeout;
+
+            function showFullscreenIcon() {
+                fullscreenIcon.classList.remove('hidden');
+                timerIcon.classList.remove('hidden');
+				dropmenuContent.classList.remove('hidden');
+				
+            }
+
+            function hideFullscreenIcon() {
+                fullscreenIcon.classList.add('hidden');
+                timerIcon.classList.add('hidden');
+				dropmenuContent.classList.add('hidden');
+            }
+
+            function resetInactivityTimeout() {
+                clearTimeout(inactivityTimeout);
+                showFullscreenIcon();
+                inactivityTimeout = setTimeout(hideFullscreenIcon, 1500);
+            }
+
+            document.addEventListener('mousemove', resetInactivityTimeout);
+            document.addEventListener('keydown', resetInactivityTimeout);
+            inactivityTimeout = setTimeout(hideFullscreenIcon, 1500);

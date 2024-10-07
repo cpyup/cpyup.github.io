@@ -8,6 +8,11 @@ function showTime() {
 var time = "";
 showTime();
 
+// REMOVE BEFORE PUSH
+document.getElementById("debugTime").addEventListener("click", function() {
+    startTimer(.30);
+});
+
 document.getElementById("tenMin").addEventListener("click", function() {
     startTimer(10);
 });
@@ -39,12 +44,29 @@ document.getElementById("customTimer").addEventListener("click", function() {
     }
 });
 
+// Calculates a warning time before the timer goes off. Will be 5 minutes by default. If the custom time is lower or equal to 5 minutes, 
+// it will be half of the custom time.
+function setWarningTime(minutes, targetTime) {
+    const warningMinutes = (minutes / 2 <= 5) ? minutes / 2 * 60 * 1000 : 5 * 60 * 1000; // The minutes left when the warning happens.
+    const warningTime = targetTime - warningMinutes; // Subtracting warningMinutes from the targetTime.
+    return warningTime;
+}
+
 function startTimer(minutes) {
     const clockDisplay = document.getElementById("MyClockDisplay");
 
     // Calculate the target end time based on the current time and the specified minutes
     const targetTime = new Date().getTime() + minutes * 60 * 1000;
+    
+    // Sets the warning time before the timer goes off.
+    const warningTime = setWarningTime(minutes, targetTime);
 
+    // Debugging
+    let targetDate = new Date(targetTime).toString();
+    let warningDate = new Date(warningTime).toString();
+    alert("Target Time: " + targetDate + "\n"
+         +"\nWarning Time: " + warningDate);
+    
     // Apply transformations to the clock
     clockDisplay.classList.add('shrink', 'fade');
 

@@ -45,7 +45,7 @@ document.getElementById("customTimer").addEventListener("click", function() {
 });
 
 // Calculates a warning time before the timer goes off. Will be 5 minutes by default. If the custom time is lower or equal to 5 minutes, 
-// it will be half of the custom time.
+// it will be half of the custom time. Returns in miliseconds (?)
 function setWarningTime(minutes, targetTime) {
     const warningMinutes = (minutes / 2 <= 5) ? minutes / 2 * 60 * 1000 : 5 * 60 * 1000; // The minutes left when the warning happens.
     const warningTime = targetTime - warningMinutes; // Subtracting warningMinutes from the targetTime.
@@ -57,9 +57,6 @@ function startTimer(minutes) {
 
     // Calculate the target end time based on the current time and the specified minutes
     const targetTime = new Date().getTime() + minutes * 60 * 1000;
-    
-    // Sets the warning time before the timer goes off.
-    const warningTime = setWarningTime(minutes, targetTime);
 
     // Debugging
     let targetDate = new Date(targetTime).toString();

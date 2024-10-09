@@ -5,6 +5,10 @@ function showTime() {
   setTimeout(showTime, 100);
 }
 
+let remainingTime;
+let timerInterval;
+let timerElement;
+
 var time = "";
 showTime();
 
@@ -39,48 +43,71 @@ document.getElementById("customTimer").addEventListener("click", function() {
     }
 });
 
+
+document.getElementById("stop").addEventListener("click", function() {
+    stopTimer();
+});
+
+document.getElementById("addMinutes").addEventListener("click", function() {
+    let additionalMinutes = prompt("Enter additional minutes:");
+    if (additionalMinutes) {
+        addMinutes(parseInt(additionalMinutes));
+    }
+});
+
 function startTimer(minutes) {
+
     const clockDisplay = document.getElementById("MyClockDisplay");
 
     // Calculate the target end time based on the current time and the specified minutes
-    const targetTime = new Date().getTime() + minutes * 60 * 1000;
+    let targetTime = new Date().getTime() + minutes * 60 * 1000;
 
     // Apply transformations to the clock
     clockDisplay.classList.add('shrink', 'fade');
 
     // Create and show the timer display
-    let timerElement = document.createElement("div");
+    timerElement = document.createElement("div");
     timerElement.id = "timerDisplay";
     document.body.appendChild(timerElement);
 
-	setTimeout(() => {
+    setTimeout(() => {
         timerElement.classList.add('grow');
     }, 0);
 
-
     // Start the interval to update the timer every second
-    const timerInterval = setInterval(() => {
+    timerInterval = setInterval(() => {
         // Calculate the remaining time
         const currentTime = new Date().getTime();
-        const remainingTime = targetTime - currentTime;
+        remainingTime = targetTime - currentTime;
 
         // If time is up, stop the timer
         if (remainingTime <= 0) {
             clearInterval(timerInterval);
-			timerElement.textContent = "Time's Up!";
-            
-			
-				setTimeout(() => {
-					document.body.removeChild(timerElement);
-					resetClockDisplay();
-				}, 5000);
-
-			
+            timerElement.textContent = "Time's Up!";
+            setTimeout(() => {
+                document.body.removeChild(timerElement);
+                resetClockDisplay();
+            }, 5000);
         } else {
             // Update the timer display with the formatted remaining time
             timerElement.textContent = formatTime(Math.floor(remainingTime / 1000));
         }
-    }, 100);
+    }, 1000); // Update every second
+}
+function stopTimer() {
+    clearInterval(timerInterval); // Stop the timer interval
+    if (timerElement) {
+        document.body.removeChild(timerElement); // Remove the timer display from the DOM
+        timerElement = null; // Clear the reference to the timer element
+    }
+    resetClockDisplay();
+}
+
+function addMinutes(minutes) {
+    if (remainingTime > 0 && minutes > 0) {
+        remainingTime += minutes * 60; // Add minutes to the remaining time
+        timerElement.textContent = formatTime(remainingTime); // Update display with new time
+    }
 }
 
 function formatTime(seconds) {

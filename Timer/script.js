@@ -1,6 +1,6 @@
 function showTime() {  
     const now = new Date();
-    time = now.toLocaleTimeString('en-US');
+    let time = now.toLocaleTimeString('en-US');
     document.getElementById("MyClockDisplay").textContent = time;
     setTimeout(showTime, 100);
   }
@@ -10,45 +10,20 @@ function showTime() {
   let timerElement;
   let customMinutes;
   
-  var time = "";
+  let time = "";
   showTime();
   
-  document.getElementById("tenMin").addEventListener("click", function() {
-      startTimer(10);
-  });
-  
-  document.getElementById("fifteenMin").addEventListener("click", function() {
-      startTimer(15);
-  });
-  
-  document.getElementById("twentyMin").addEventListener("click", function() {
-      startTimer(20);
-  });
-  
-  document.getElementById("twentyFiveMin").addEventListener("click", function() {
-      startTimer(25);
-  });
-  
-  document.getElementById("thirtyMin").addEventListener("click", function() {
-      startTimer(30);
-  });
-  
-  document.getElementById("oneHour").addEventListener("click", function() {
-      startTimer(60);
-  });
-  
-  document.getElementById("customTimer").addEventListener("click", function() {
-      customTime();
-  });
-  
-  document.getElementById("stop").addEventListener("click", function() {
-      stopTimer();
-  });
-  
+  document.addEventListener('click', function(event) {
+    if (event.target.matches('#tenMin')) startTimer(10);
+    else if (event.target.matches('#fifteenMin')) startTimer(15);
+    else if (event.target.matches('#twentyMin')) startTimer(20);
+    else if (event.target.matches('#thirtyMin')) startTimer(30);
+    else if (event.target.matches('#oneHour')) startTimer(60);
+    else if (event.target.matches('#customTimer')) customTime();
+    else if (event.target.matches('#stop')) stopTimer();
+    else if (event.target.matches('#restart')) restartTimer();
+});
 
-  document.getElementById("restart").addEventListener("click", function() {
-    restartTimer();
-  });
   
   function startTimer(minutes) {
       const clockDisplay = document.getElementById("MyClockDisplay");
@@ -99,6 +74,8 @@ function showTime() {
     customTime();
     startTimer(custumMinutes);
   };
+
+
 
   function customTime(){
     customMinutes = prompt("Enter time in minutes:");

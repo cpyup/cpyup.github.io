@@ -9,7 +9,10 @@ function showTime() {
   let timerInterval;
   let timerElement;
   let customMinutes;
-  
+  let newRemainingTime;
+  let minToAdd;
+  let isPaused = false;
+
   let time = "";
   showTime();
   
@@ -22,6 +25,8 @@ function showTime() {
     else if (event.target.matches('#customTimer')) customTime();
     else if (event.target.matches('#stop')) stopTimer();
     else if (event.target.matches('#restart')) restartTimer();
+    else if (event.target.matches('#addMin'))addMinutes(1);
+    else if (event.target.matches('#pause'))pauseTimer();
 });
 
   
@@ -72,7 +77,7 @@ function showTime() {
   function restartTimer(){
     stopTimer();
     customTime();
-    startTimer(custumMinutes);
+    startTimer(customMinutes);
   };
 
 
@@ -83,12 +88,31 @@ function showTime() {
           startTimer(parseInt(customMinutes));
       }
   };
-  
+
+  function pauseTimer() {
+    if (isPaused) {
+        isPaused = false;
+        startTimer(remainingTime / 60); // Resumes with remaining time
+    } else {
+        isPaused = true;
+        clearInterval(timerInterval);
+    }
+}
+
+function addMinutes(minToAdd){
+    
+        (remainingTime = ((remainingTime)) + 1) + minToAdd;
+    
+};
+
+
   function formatTime(seconds) {
       const minutes = Math.floor(seconds / 60);
       const remainingSeconds = seconds % 60;
       return `${String(minutes).padStart(2, '0')}:${String(remainingSeconds).padStart(2, '0')}`;
   }
+
+
   
   function resetClockDisplay() {
       const clockDisplay = document.getElementById("MyClockDisplay");

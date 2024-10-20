@@ -17,36 +17,47 @@ function showTime() {
   showTime();
   
   document.addEventListener('click', function(event) {
-    if (event.target.matches('#tenMin')) startTimer(10);
-    else if (event.target.matches('#fifteenMin')) startTimer(15);
-    else if (event.target.matches('#twentyMin')) startTimer(20);
-    else if (event.target.matches('#thirtyMin')) startTimer(30);
-    else if (event.target.matches('#oneHour')) startTimer(60);
+    if (event.target.matches('#tenMin')) setTime(10);
+    else if (event.target.matches('#fifteenMin')) setTime(15);
+    else if (event.target.matches('#twentyMin')) setTime(20);
+    else if (event.target.matches('#thirtyMin')) setTime(30);
+    else if (event.target.matches('#oneHour')) setTime(60);
     else if (event.target.matches('#customTimer')) customTime();
     else if (event.target.matches('#stop')) stopTimer();
     else if (event.target.matches('#restart')) restartTimer();
-    else if (event.target.matches('#addMin'))addMinutes(1);
-    else if (event.target.matches('#pause'))pauseTimer();
+    else if (event.target.matches('#pause')) pauseTimer();
+    else if (event.target.matches('#start')) startTimer();
+    
+
 });
 
+
+function setTime(minutes){
+    const clockDisplay = document.getElementById("MyClockDisplay");
   
-  function startTimer(minutes) {
-      const clockDisplay = document.getElementById("MyClockDisplay");
+    // Set remainingTime in seconds
+    remainingTime = minutes * 60;
+
+    // Apply transformations to the clock
+    clockDisplay.classList.add('shrink', 'fade');
+
+    // Create and show the timer display
+    timerElement = document.createElement("div");
+    timerElement.id = "timerDisplay";
+    document.body.appendChild(timerElement);
+
+    setTimeout(() => {
+        timerElement.classList.add('grow');
+    }, 0);
+var text = document.getElementById("tenMin");
+    text.style.display = "block";
+};
+
+
+    
   
-      // Set remainingTime in seconds
-      remainingTime = minutes * 60;
   
-      // Apply transformations to the clock
-      clockDisplay.classList.add('shrink', 'fade');
-  
-      // Create and show the timer display
-      timerElement = document.createElement("div");
-      timerElement.id = "timerDisplay";
-      document.body.appendChild(timerElement);
-  
-      setTimeout(() => {
-          timerElement.classList.add('grow');
-      }, 0);
+  function startTimer() {
   
       // Start the interval to update the timer every second
       timerInterval = setInterval(() => {
@@ -63,6 +74,8 @@ function showTime() {
               timerElement.textContent = formatTime(remainingTime);
           }
       }, 1000); // Update every second
+
+      
   }
   
   function stopTimer() {
@@ -71,6 +84,20 @@ function showTime() {
           document.body.removeChild(timerElement);
           timerElement = null;
       }
+     /* timerInterval = setInterval(() => {
+        if (remainingTime <= 0) {
+            clearInterval(timerInterval);
+            timerElement.textContent = "Time's Up!";
+            setTimeout(() => {
+                document.body.removeChild(timerElement);
+                resetClockDisplay();
+            }, 5000);
+        } else {
+            // Update remaining time and display
+            remainingTime--;
+            timerElement.textContent = formatTime(remainingTime);
+        }
+    }, 1000);*/
       resetClockDisplay();
   }
   
@@ -85,26 +112,13 @@ function showTime() {
   function customTime(){
     customMinutes = prompt("Enter time in minutes:");
       if (customTime) {
-          startTimer(parseInt(customMinutes));
+          setTime(parseInt(customMinutes));
       }
   };
-
-  function pauseTimer() {
-    if (isPaused) {
-        isPaused = false;
-        startTimer(remainingTime / 60); // Resumes with remaining time
-    } else {
-        isPaused = true;
-        clearInterval(timerInterval);
-    }
-}
-
-function addMinutes(minToAdd){
-    
-        (remainingTime = ((remainingTime)) + 1) + minToAdd;
-    
+  
+function pauseTimer(){
+    clearInterval(setInterval)
 };
-
 
   function formatTime(seconds) {
       const minutes = Math.floor(seconds / 60);

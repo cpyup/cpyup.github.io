@@ -12,6 +12,7 @@ function showTime() {
   let newRemainingTime;
   let minToAdd;
   let isPaused = false;
+  let isMuted; 
 
   let time = "";
   showTime();
@@ -163,6 +164,7 @@ function pauseTimer(){
           closeFullscreen();
       } else {
           openFullscreen();
+          playAudioLoop("alarm");
       }
   }
   
@@ -224,3 +226,15 @@ function pauseTimer(){
   document.addEventListener('keydown', resetInactivityTimeout);
   inactivityTimeout = setTimeout(hideFullscreenIcon, 1500);
   
+  // Audio tags -> "warningAlarm", "alarm"
+  function playAudioLoop(audio) {
+    audio = document.getElementById(audio);
+    audio.loop = true;
+    audio.play();
+  }
+
+  function stopAudioLoop(audio) {
+    audio = document.getElementById(audio);
+    audio.loop = false;
+    audio.pause();
+  }

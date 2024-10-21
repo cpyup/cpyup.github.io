@@ -1,25 +1,25 @@
+
 function showTime() {  
     const now = new Date();
     let time = now.toLocaleTimeString('en-US');
     document.getElementById("MyClockDisplay").textContent = time;
     setTimeout(showTime, 100);
   }
-  
-  let remainingTime; // Total remaining time in seconds
-  let timerInterval;
-  let timerElement;
-  let customMinutes;
-  let newRemainingTime;
-  let minToAdd;
-  let isPaused = false;
+
+  var remainingTime; // Total remaining time in seconds
+var timerInterval;
+var timerElement;
+var customMinutes;
+
 
   let time = "";
   showTime();
   
   document.addEventListener('click', function(event) {
-    if (event.target.matches('#tenMin')) setTime(10);
-    else if (event.target.matches('#fifteenMin')) setTime(15);
-    else if (event.target.matches('#twentyMin')) setTime(20);
+
+    if (event.target.matches('#oneMin')) setTime(1);
+    else if (event.target.matches('#fiveMin')) setTime(5);
+    else if (event.target.matches('#tenMin')) setTime(10);
     else if (event.target.matches('#thirtyMin')) setTime(30);
     else if (event.target.matches('#oneHour')) setTime(60);
     else if (event.target.matches('#customTimer')) customTime();
@@ -42,25 +42,32 @@ function setTime(minutes){
     clockDisplay.classList.add('shrink', 'fade');
 
     // Create and show the timer display
-    timerElement = document.createElement("div");
-    timerElement.id = "timerDisplay";
-    document.body.appendChild(timerElement);
+    
 
     setTimeout(() => {
+        timerElement = document.createElement("div");
+        timerElement.id = "timerDisplay";
+        document.body.appendChild(timerElement);
         timerElement.classList.add('grow');
-    }, 0);
-var text = document.getElementById("tenMin");
-    text.style.display = "block";
+        timerElement.textContent = formatTime(remainingTime);
+    }, 1000);
+    
 };
 
 
     
   
-  
+function pauseTimer(minutes){
+    remainingTime = minutes;
+    remainingTime -= now - timerInterval();
+    
+    timerElement.textContent = formatTime();
+
+}
   function startTimer() {
   
       // Start the interval to update the timer every second
-      timerInterval = setInterval(() => {
+      setInterval(() => {
           if (remainingTime <= 0) {
               clearInterval(timerInterval);
               timerElement.textContent = "Time's Up!";
@@ -72,6 +79,7 @@ var text = document.getElementById("tenMin");
               // Update remaining time and display
               remainingTime--;
               timerElement.textContent = formatTime(remainingTime);
+              
           }
       }, 1000); // Update every second
 
@@ -84,6 +92,7 @@ var text = document.getElementById("tenMin");
           document.body.removeChild(timerElement);
           timerElement = null;
       }
+
      /* timerInterval = setInterval(() => {
         if (remainingTime <= 0) {
             clearInterval(timerInterval);
@@ -99,6 +108,7 @@ var text = document.getElementById("tenMin");
         }
     }, 1000);*/
       resetClockDisplay();
+      location.reload();
   }
   
   function restartTimer(){
@@ -116,9 +126,7 @@ var text = document.getElementById("tenMin");
       }
   };
   
-function pauseTimer(){
-    clearInterval(setInterval)
-};
+
 
   function formatTime(seconds) {
       const minutes = Math.floor(seconds / 60);

@@ -171,7 +171,6 @@ function pauseTimer(minutes){
           closeFullscreen();
       } else {
           openFullscreen();
-          playAudioLoop("alarm");
       }
   }
   

@@ -6,7 +6,7 @@ function showTime() {
     setTimeout(showTime, 100);
   }
 
-  var remainingTime; // Total remaining time in seconds
+var remainingTime; // Total remaining time in seconds
 var timerInterval;
 var timerElement;
 var customMinutes;
@@ -250,3 +250,23 @@ function pauseTimer(minutes){
   document.addEventListener('keydown', resetInactivityTimeout);
   inactivityTimeout = setTimeout(hideFullscreenIcon, 1500);
   
+  // AUDIO CONTROL
+
+  // Plays audio from specified elementID. 
+  // ID for the alarm = "alarm" ID for Warning Alarm = "warningAlarm"
+  // Ex. playAudioLoop("alarm") -> plays the audio file alarm.mp3
+  // playAudioLoop("warningAlarm") -> plays the audio file warningAlarm.mp3
+  function playAudioLoop(audio) {
+    audio = document.getElementById(audio);
+    audio.loop = true;
+    audio.play();
+  }
+
+  // Pauses audio from specified elementID and stops the looping.
+  // Alarm = "alarm", Warning Alarm = "warningAlarm"
+  // Ex. stopAudioLoop("alarm") -> stops the pauses alarm.mp3 and stops looping alarm.mp3
+  function stopAudioLoop(audio) {
+    audio = document.getElementById(audio);
+    audio.loop = false;
+    audio.pause();
+  }

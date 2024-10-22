@@ -8,33 +8,52 @@ function showTime() {
 var time = "";
 showTime();
 
+document.getElementById("customMinButton").addEventListener("click", function() {
+    document.getElementById("customMinContainer").classList.remove("hidden");
+});
+
+document.getElementById("startCustomMin").addEventListener("click", function() {
+    let customMinutes = parseInt(document.getElementById("customMinInput").value);
+    if (customMinutes && customMinutes > 0) {
+        startTimer(customMinutes);
+    } else {
+        alert("Please enter a valid number of minutes.");
+    }
+});
+
+// Optionally listen for the "Enter" key to start the timer
+document.getElementById("customMinInput").addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+        let customMinutes = parseInt(this.value);
+        if (customMinutes && customMinutes > 0) {
+            startTimer(customMinutes);  // Start the timer with the custom minutes
+        } else {
+            alert("Please enter a valid number of minutes.");
+        }
+    }
+});
+
+document.getElementById("oneMin").addEventListener("click", function() {
+    startTimer(1);
+});
+document.getElementById("fiveMin").addEventListener("click", function() {
+    startTimer(5);
+});
 document.getElementById("tenMin").addEventListener("click", function() {
     startTimer(10);
 });
-
 document.getElementById("fifteenMin").addEventListener("click", function() {
     startTimer(15);
 });
-
-document.getElementById("twentyMin").addEventListener("click", function() {
-    startTimer(20);
-});
-
-document.getElementById("twentyFiveMin").addEventListener("click", function() {
-    startTimer(25);
-});
-
 document.getElementById("thirtyMin").addEventListener("click", function() {
     startTimer(30);
 });
-
 document.getElementById("oneHour").addEventListener("click", function() {
     startTimer(60);
 });
-
-document.getElementById("customTimer").addEventListener("click", function() {
+document.getElementById("customMin").addEventListener("click", function() {
     let customTime = prompt("Enter time in minutes:");
-    if(customTime) {
+    if (customTime) {
         startTimer(parseInt(customTime));
     }
 });

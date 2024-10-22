@@ -10,6 +10,126 @@
 
 /* General styling */
 
+.button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 5%; /* Adjust height position */
+    left: 50%;
+    transform: translateX(-50%); /* Center horizontally */
+    z-index: 10; /* Ensure it's above other elements */
+}
+
+
+.timer-btn {
+    background-color: orange;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 5px; /* Space between the timer button and the minute buttons */
+    width: 120px;  /* Adjust width */
+    height: 120px; /* Adjust height */
+}
+
+/* Button row for circular time buttons */
+.button-row {
+    display: flex;
+    gap: 15px; /* Space between buttons */
+    justify-content: center;
+    align-items: center; /* Align buttons vertically in the middle */
+    margin-top: 10px; /* Reduce space between timer button and the row */
+}
+
+.timer-options {
+    display: flex;
+    gap: 10px; /* Space between buttons */
+}
+
+.timer-option {
+    background-color: orange;
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 50%; /* Makes the buttons circular */
+    width: 60px; /* Fixed width */
+    height: 60px; /* Fixed height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+}
+
+.timer-option:hover {
+    background-color: darkorange;
+}
+
+.rounded-rectangle {
+    background-color: orange;
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 20px;
+    padding: 10px 20px; /* Wider for a rectangle appearance */
+    font-size: 16px;
+    height: 50px;
+}
+
+.rounded-rectangle:hover {
+    background-color: darkorange;
+}
+
+/* Position for Custom Min and Stopwatch */
+.rounded-options {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Space between custom min and stopwatch */
+}
+
+button img {
+    vertical-align: middle;
+}
+
+/* Hidden class to initially hide elements */
+.hidden {
+    display: none;
+}
+
+/* Custom Min Input and Start button */
+#customMinContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px; /* Add space above the input */
+    margin-left: -40px; /* Align input below the button */
+    gap: 5px; /* Space between input and start button */
+}
+
+#customMinInput {
+    width: 120px;
+    height: 40px;
+    border-radius: 8px;
+    padding: 5px;
+    font-size: 14px;
+    text-align: center;
+}
+
+#startCustomMin {
+    width: 80px;
+    height: 40px;
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+#startCustomMin:hover {
+    background-color: darkred;
+}
+
 body {
     margin: 0;
     display: flex;
@@ -59,7 +179,8 @@ canvas {
 .dropdown {
     position: absolute;
     top: 20px;
-    right: 30px;
+    left: 50%;
+    transform: translateX(-50%); /* Centers the button horizontally */
     display: inline-block;
 }
 

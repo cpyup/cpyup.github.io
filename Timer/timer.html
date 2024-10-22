@@ -14,20 +14,49 @@
 <body>
     <div id="particles-js">
         <!--- Timer Drop Down Menu --->
-        <div class="dropdown">
-            <img src="timer-icon.png" alt="Menu" class="dropbtn" id="menuIcon">
-            <div class="dropdown-content" id="dropdownMenu">
-                <a href="#" id="tenMin">10 Minutes</a>
-                <a href="#" id="fifteenMin">15 Minutes</a>
-                <a href="#" id="twentyMin">20 Minutes</a>
-                <a href="#" id="twentyFiveMin">25 Minutes</a>
-                <a href="#" id="thirtyMin">30 Minutes</a>
-				<a href="#" id="oneHour">1 Hour</a>
-                <a href="#" id="customTimer">Custom - Minutes</a>
-				<!-- <a href="#" id="customTarget">Custom - Target</a> -->
+        <div class="button-container">
+            <!-- Timer Button -->
+            <button class="timer-btn" id="timerBtn">
+                <img src="timer-icon.png" alt="Timer" width="75" height="75">
+            </button>
+        
+            <!-- Row for Circular Time Buttons and Custom Min Input -->
+            <div class="button-row">
+                <!-- Circular Time Buttons -->
+                <div class="timer-options">
+                    <button class="timer-option" id="oneMin">1 min</button>
+                    <button class="timer-option" id="fiveMin">5 min</button>
+                    <button class="timer-option" id="tenMin">10 min</button>
+                    <button class="timer-option" id="fifteenMin">15 min</button>
+                    <button class="timer-option" id="thirtyMin">30 min</button>
+                    <button class="timer-option" id="oneHour">1 hr</button>
+                </div>
+        
+                <!-- Custom Min button, input, and start button -->
+                <div class="rounded-options">
+                    <!-- Custom Min Button -->
+                    <div id="customMinGroup">
+                        <button class="rounded-rectangle" id="customMinButton">Custom Min</button>
+                        <!-- Custom Min Input and Start button (Initially hidden) -->
+                        <div id="customMinContainer" class="hidden">
+                            <input type="number" id="customMinInput" placeholder="Enter Minutes" />
+                            <button id="startCustomMin">Start</button>
+                        </div>
+                    </div>
+        
+                    <!-- Stopwatch button -->
+                    <button class="rounded-rectangle" id="stopwatch">Stopwatch</button>
+                </div>
             </div>
-
         </div>
+        
+        
+        
+        
+        
+        
+        
+        
 
         <!-- Fullscreen Icon -->
         <img src="full-screen.png" id="fullscreenicon" width="75" height="75" onclick="clickImg(this)" />

@@ -108,7 +108,7 @@ var text = document.getElementById("tenMin");
   };
 
 
-
+//
   function customTime(){
     customMinutes = prompt("Enter time in minutes:");
       if (customTime) {

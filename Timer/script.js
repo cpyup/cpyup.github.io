@@ -30,8 +30,34 @@ var customMinutes;
     
 
 });
+// ==============================================
+// Functionality to toggle between sound and mute
+const soundIcon = document.getElementById('soundIcon');
+const muteIcon = document.getElementById('muteIcon');
+let isMuted = false;
+let alarmPlaying = false; // Keep track of whether the alarm is allowed to play
 
+// Add event listener for toggling sound/mute
+soundIcon.addEventListener('click', toggleAudio);
+muteIcon.addEventListener('click', toggleAudio);
 
+function toggleAudio() {
+    // Only allow the alarm to play if the timer is running and time is 5 seconds or less
+    if (remainingTime > 5 || !alarmPlaying) return;
+
+    if (isMuted) {
+        playAudioLoop("alarm"); // Resume playing the sound
+        soundIcon.style.display = "block";
+        muteIcon.style.display = "none";
+    } else {
+        stopAudioLoop("alarm"); // Mute the sound
+        soundIcon.style.display = "none";
+        muteIcon.style.display = "block";
+    }
+    isMuted = !isMuted;  // Toggle the mute state
+}
+
+// 
 function setTime(minutes){
     const clockDisplay = document.getElementById("MyClockDisplay");
   
@@ -64,27 +90,30 @@ function pauseTimer(minutes){
     timerElement.textContent = formatTime();
 
 }
-  function startTimer() {
-  
-      // Start the interval to update the timer every second
-      setInterval(() => {
-          if (remainingTime <= 0) {
-              clearInterval(timerInterval);
-              timerElement.textContent = "Time's Up!";
-              setTimeout(() => {
-                  document.body.removeChild(timerElement);
-                  resetClockDisplay();
-              }, 5000);
-          } else {
-              // Update remaining time and display
-              remainingTime--;
-              timerElement.textContent = formatTime(remainingTime);
-              
-          }
-      }, 1000); // Update every second
 
-      
-  }
+function startTimer() {
+    timerInterval = setInterval(() => {
+        if (remainingTime <= 0) {
+            clearInterval(timerInterval);
+            stopAudioLoop("alarm"); // Stop the audio when time's up
+            alarmPlaying = false;   // Reset the flag
+            timerElement.textContent = "Time's Up!";
+            setTimeout(() => {
+                document.body.removeChild(timerElement);
+                resetClockDisplay();
+            }, 5000);
+        } else {
+            if (remainingTime <= 10 && !alarmPlaying) {
+                playAudioLoop("alarm"); // Play the alarm in the last 5 seconds
+                alarmPlaying = true;    // Allow sound control
+            }
+            remainingTime--;
+            timerElement.textContent = formatTime(remainingTime);
+        }
+    }, 1000);
+}
+
+
   
   function stopTimer() {
       clearInterval(timerInterval);

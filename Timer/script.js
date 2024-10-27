@@ -12,13 +12,10 @@ var timerElement;
 var customMinutes;
 var timerRunning = false;
 
-
-
   let time = "";
   showTime();
   
   document.addEventListener('click', function(event) {
-
     if (event.target.matches('#oneMin')) setTime(1);
     else if (event.target.matches('#fiveMin')) setTime(5);
     else if (event.target.matches('#tenMin')) setTime(10);
@@ -26,11 +23,9 @@ var timerRunning = false;
     else if (event.target.matches('#oneHour')) setTime(60);
     else if (event.target.matches('#customTimer')) customTime();
     else if (event.target.matches('#stop')) stopTimer();
-    else if (event.target.matches('#restart')) addMinutes(1);
+    else if (event.target.matches('#addTime')) addMinutes(1);
     else if (event.target.matches('#pause')) pauseTimer();
     else if (event.target.matches('#start')) startTimer();
-    
-
 });
 // ==============================================
 // Functionality to toggle between sound and mute
@@ -63,14 +58,9 @@ function toggleAudio() {
 function setTime(minutes){
     const clockDisplay = document.getElementById("MyClockDisplay");
   
-    // Set remainingTime in seconds
     remainingTime = minutes * 60;
 
-    // Apply transformations to the clock
     clockDisplay.classList.add('shrink', 'fade');
-
-    // Create and show the timer display
-    
 
     setTimeout(() => {
         timerElement = document.createElement("div");
@@ -84,9 +74,6 @@ function setTime(minutes){
     
 };
 
-
-    
-  
 function pauseTimer(){
     if(timerRunning){
         clearInterval(timerInterval);
@@ -120,31 +107,13 @@ function startTimer() {
             timerElement.textContent = formatTime(remainingTime);
         }
     }, 1000);
-}
-
-
-  
+}  
   function stopTimer() {
       clearInterval(timerInterval);
       if (timerElement) {
           document.body.removeChild(timerElement);
           timerElement = null;
       }
-
-     /* timerInterval = setInterval(() => {
-        if (remainingTime <= 0) {
-            clearInterval(timerInterval);
-            timerElement.textContent = "Time's Up!";
-            setTimeout(() => {
-                document.body.removeChild(timerElement);
-                resetClockDisplay();
-            }, 5000);
-        } else {
-            // Update remaining time and display
-            remainingTime--;
-            timerElement.textContent = formatTime(remainingTime);
-        }
-    }, 1000);*/
       resetClockDisplay();
       location.reload();
   }
@@ -165,7 +134,6 @@ function addMinutes(addMinutes){
   };
 
 
-//
   function customTime(){
     customMinutes = prompt("Enter time in minutes:");
       if (customTime) {
@@ -173,15 +141,11 @@ function addMinutes(addMinutes){
       }
   };
   
-
-
   function formatTime(seconds) {
       const minutes = Math.floor(seconds / 60);
       const remainingSeconds = seconds % 60;
       return `${String(minutes).padStart(2, '0')}:${String(remainingSeconds).padStart(2, '0')}`;
   }
-
-
   
   function resetClockDisplay() {
       const clockDisplay = document.getElementById("MyClockDisplay");

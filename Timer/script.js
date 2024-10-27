@@ -13,6 +13,7 @@ var customMinutes;
 var timerRunning = false;
 
 
+
   let time = "";
   showTime();
   
@@ -25,7 +26,7 @@ var timerRunning = false;
     else if (event.target.matches('#oneHour')) setTime(60);
     else if (event.target.matches('#customTimer')) customTime();
     else if (event.target.matches('#stop')) stopTimer();
-    else if (event.target.matches('#restart')) restartTimer();
+    else if (event.target.matches('#restart')) addMinutes(1);
     else if (event.target.matches('#pause')) pauseTimer();
     else if (event.target.matches('#start')) startTimer();
     
@@ -78,6 +79,8 @@ function setTime(minutes){
         timerElement.classList.add('grow');
         timerElement.textContent = formatTime(remainingTime);
     }, 1000);
+
+    console.log(minutes);
     
 };
 
@@ -146,8 +149,19 @@ function startTimer() {
       location.reload();
   }
   
-  function restartTimer(){
+function addMinutes(addMinutes){
+
     clearInterval(timerInterval);
+    if (timerElement) {
+        document.body.removeChild(timerElement);
+        timerElement = null;
+    }
+    
+    remainingTime = remainingTime / 60 + addMinutes;
+
+   setTime(remainingTime);
+    
+    startTimer();
   };
 
 

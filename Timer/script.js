@@ -10,6 +10,7 @@ var remainingTime; // Total remaining time in seconds
 var timerInterval;
 var timerElement;
 var customMinutes;
+var timerRunning = false;
 
 
   let time = "";
@@ -83,15 +84,20 @@ function setTime(minutes){
 
     
   
-function pauseTimer(minutes){
-    remainingTime = minutes;
-    remainingTime -= now - timerInterval();
-    
-    timerElement.textContent = formatTime();
+function pauseTimer(){
+    if(timerRunning){
+        clearInterval(timerInterval);
+        timerRunning = false
+    }
+    else{
+        startTimer();
+        timerRunning = true
+    }
 
 }
 
 function startTimer() {
+    timerRunning = true
     timerInterval = setInterval(() => {
         if (remainingTime <= 0) {
             clearInterval(timerInterval);
@@ -141,9 +147,7 @@ function startTimer() {
   }
   
   function restartTimer(){
-    stopTimer();
-    customTime();
-    startTimer(customMinutes);
+    clearInterval(timerInterval);
   };
 
 

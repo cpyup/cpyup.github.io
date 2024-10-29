@@ -58,6 +58,14 @@ document.getElementById("customMin").addEventListener("click", function() {
     }
 });
 
+// Add event listener to the "Timer" button to show the other buttons
+document.getElementById("timerBtn").addEventListener("click", function() {
+    // Show the buttons when the Timer button is clicked
+    document.querySelector('.button-container').classList.remove('hidden-elements');
+    // Hide the Timer button itself after showing the other buttons
+    document.getElementById("timerBtn").classList.add('hidden-elements');
+});
+
 function startTimer(minutes) {
     const clockDisplay = document.getElementById("MyClockDisplay");
 
@@ -66,6 +74,10 @@ function startTimer(minutes) {
 
     // Apply transformations to the clock
     clockDisplay.classList.add('shrink', 'fade');
+
+    // Hide the buttons, inputs, etc.
+    document.querySelector('.button-container').classList.add('hidden-elements');
+    document.getElementById("timerBtn").classList.add('hidden-elements'); // Ensure the Timer button is hidden
 
     // Create and show the timer display
     let timerElement = document.createElement("div");
@@ -93,6 +105,9 @@ function startTimer(minutes) {
 					document.body.removeChild(timerElement);
 					resetClockDisplay();
 				}, 5000);
+
+    // Show the Timer button again after the timer finishes
+    document.getElementById("timerBtn").classList.remove('hidden-elements');
 
 			
         } else {

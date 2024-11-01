@@ -26,6 +26,7 @@ var timerRunning = false;
     else if (event.target.matches('#addTime')) addMinutes(1);
     else if (event.target.matches('#pause')) pauseTimer();
     else if (event.target.matches('#start')) startTimer();
+    else if (event.target.matches('#restart')) restartTimer();
 });
 // ==============================================
 // Functionality to toggle between sound and mute
@@ -59,6 +60,7 @@ function setTime(minutes){
     const clockDisplay = document.getElementById("MyClockDisplay");
   
     remainingTime = minutes * 60;
+    lastSetTime = remainingTime;
 
     clockDisplay.classList.add('shrink', 'fade');
 
@@ -69,8 +71,6 @@ function setTime(minutes){
         timerElement.classList.add('grow');
         timerElement.textContent = formatTime(remainingTime);
     }, 1000);
-
-    console.log(minutes);
     
 };
 
@@ -107,6 +107,7 @@ function startTimer() {
             timerElement.textContent = formatTime(remainingTime);
         }
     }, 1000);
+    
 }  
   function stopTimer() {
       clearInterval(timerInterval);
@@ -132,6 +133,19 @@ function addMinutes(addMinutes){
     
     startTimer();
   };
+
+  function restartTimer() {
+    function restartTimer() {
+        clearInterval(timerInterval); // Clear any existing timer
+        remainingTime = lastSetTime; // Reset remaining time to last set time
+        timerElement.textContent = formatTime(remainingTime); // Update the display
+    
+        setTime(lastSetTime);
+        startTimer(); // Restart the timer
+    }
+    
+}
+
 
 
   function customTime(){

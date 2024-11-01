@@ -269,12 +269,11 @@ function addMinutes(addMinutes){
   let stopwatchInterval; // to keep track of the interval
   let elapsedPausedTime = 0; // to keep track of the elapsed time while stopped
 
-  // Debug TODO: Remove before push
   function useStopwatch() {
     usingStopwatch = usingStopwatch ? false: true; // Toggles usingStopwatch
-    console.log("Stopwatch Started: " + usingStopwatch);
+    document.getElementById("stopwatchStatus").innerHTML = "Stopwatch Buttons Active: " + usingStopwatch;
+    console.log("Stopwatch Active: " + usingStopwatch);
   }
-  // Debug
 
   // Stopwatch Event Listener: start, pause, restart
   document.addEventListener('click', function(event) {
@@ -283,18 +282,42 @@ function addMinutes(addMinutes){
     else if (event.target.matches('#restart') && usingStopwatch) restartStopwatch();
 });
 
-  // Stopwatch
+  // Stopwatch info from: https://www.educative.io/answers/how-to-create-a-stopwatch-in-javascript
   function startStopwatch() {
     console.log("Stopwatch Started")
-    
+    if (!stopwatchInterval) { // If stopwatch doesn't have an interval
+        startTime = new Date().getTime() - elapsedPausedTime;
+        stopwatchInterval = setInterval(updateStopwatch, 1000) // updates every second
+    }
   }
   
-  function pauseStopwatch() {
-    console.log("Stopwatch Paused")
-  }
+  function pauseStopwatch(isRestart) {
+    if (!isRestart) {console.log("Stopwatch Paused")} 
+    clearInterval(stopwatchInterval); // stop the interval from updating
+    elapsedPausedTime = new Date().getTime() - startTime; // calculate amount of time paused
+    stopwatchInterval = null; // reset the interval variable
+}
 
   function restartStopwatch() {
     console.log("Stopwatch Restarted")
+    pauseStopwatch(true); // stops the interval, and passes true so that it does not log the "Stopwatch Paused"
+    elapsedPausedTime = 0; // reset the elapsed pause time variable
+    document.getElementById("stopwatch").innerHTML = "00:00:00"; // reset display
+  }
+
+  function updateStopwatch() {
+    let currentTime = new Date().getTime(); // get current time in milliseconds
+    let elapsedTime = currentTime - startTime; // calculate the elapsed time in milliseconds
+    let seconds = Math.floor(elapsedTime / 1000) % 60; // calculate seconds
+    let minutes = Math.floor(elapsedTime / 1000 / 60) % 60; // calculate minutes
+    let hours = Math.floor(elapsedTime / 1000 / 60 / 60); // calculate hours
+    let displayTime = pad(hours) + ":" + pad(minutes) + ":" + pad(seconds); // format display time
+    document.getElementById("stopwatch").innerHTML = displayTime; // update the display
+  }
+
+  function pad(number) {
+    // add a leading zero if the number is less than 10
+    return (number < 10 ? "0" : "") + number;
   }
 
   function startNewTime(minutes){
@@ -303,5 +326,4 @@ function addMinutes(addMinutes){
     clockDisplay.classList.add('shrink', 'fade');
 
     console.log(minutes);
-    
 };

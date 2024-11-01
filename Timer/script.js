@@ -287,7 +287,7 @@ function addMinutes(addMinutes){
     console.log("Stopwatch Started")
     if (!stopwatchInterval) { // If stopwatch doesn't have an interval
         startTime = new Date().getTime() - elapsedPausedTime;
-        stopwatchInterval = setInterval(updateStopwatch, 1000) // updates every second
+        stopwatchInterval = setInterval(updateStopwatch, 10); // updates every second
     }
   }
   
@@ -302,16 +302,17 @@ function addMinutes(addMinutes){
     console.log("Stopwatch Restarted")
     pauseStopwatch(true); // stops the interval, and passes true so that it does not log the "Stopwatch Paused"
     elapsedPausedTime = 0; // reset the elapsed pause time variable
-    document.getElementById("stopwatch").innerHTML = "00:00:00"; // reset display
+    document.getElementById("stopwatch").innerHTML = "00:00:00.000"; // reset display
   }
 
   function updateStopwatch() {
     let currentTime = new Date().getTime(); // get current time in milliseconds
     let elapsedTime = currentTime - startTime; // calculate the elapsed time in milliseconds
+    let milliseconds = Math.floor((elapsedTime % 1000) / 10).toString().padStart(2, '0'); // show only the first two digits of milliseconds
     let seconds = Math.floor(elapsedTime / 1000) % 60; // calculate seconds
     let minutes = Math.floor(elapsedTime / 1000 / 60) % 60; // calculate minutes
     let hours = Math.floor(elapsedTime / 1000 / 60 / 60); // calculate hours
-    let displayTime = pad(hours) + ":" + pad(minutes) + ":" + pad(seconds); // format display time
+    let displayTime = pad(hours) + ":" + pad(minutes) + ":" + pad(seconds) + "." + milliseconds; // format display time
     document.getElementById("stopwatch").innerHTML = displayTime; // update the display
   }
 

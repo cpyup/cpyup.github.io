@@ -134,6 +134,7 @@ function addMinutes(addMinutes){
   };
 
 
+
   function customTime(){
     customMinutes = prompt("Enter time in minutes:");
       if (customTime) {
@@ -262,4 +263,42 @@ function addMinutes(addMinutes){
     audio = document.getElementById(audio);
     audio.loop = false;
     audio.pause();
+  }
+
+
+  /// STOPWATCH CODING ITS NOT PRETTY
+
+  let usingStopwatch = false; // Determines whether or not the Stopwatch function should start when appropriate buttons are clicked
+  let startTime; // to keep track of the start time
+  let stopwatchInterval; // to keep track of the interval
+  let elapsedPausedTime = 0; // to keep track of the elapsed time while stopped
+
+  // Debug TODO: Remove before push
+  function useStopwatch() {
+    usingStopwatch = true;
+  }
+  // Debug
+
+  // Stopwatch Event Listener
+  document.addEventListener('click', function(event) {
+    if (event.target.matches('#start') && usingStopwatch) startStopwatch();
+    else if (event.target.matches('#pause')) pauseStopwatch();
+    else if (event.target.matches('#stop')) stopStopwatch();
+});
+
+  // Stopwatch
+  function startStopwatch() {
+    alert("Started Stopwatch")
+  }
+  
+  function stopStopwatch() {
+    if (usingStopwatch) {
+
+    }
+  }
+
+  function resetStopwatch() {
+    if (usingStopwatch) {
+
+    }
   }

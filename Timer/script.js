@@ -1,10 +1,9 @@
-
 function showTime() {  
     const now = new Date();
     let time = now.toLocaleTimeString('en-US');
     document.getElementById("MyClockDisplay").textContent = time;
     setTimeout(showTime, 100);
-  }
+}
 
 var remainingTime; // Total remaining time in seconds
 var timerInterval;
@@ -133,8 +132,6 @@ function addMinutes(addMinutes){
     startTimer();
   };
 
-
-
   function customTime(){
     customMinutes = prompt("Enter time in minutes:");
       if (customTime) {
@@ -246,7 +243,7 @@ function addMinutes(addMinutes){
   
   // AUDIO CONTROL
 
-  // Plays audio from specified elementID. 
+  // Plays audio from specified elementID
   // ID for the alarm = "alarm" ID for Warning Alarm = "warningAlarm"
   // Ex. playAudioLoop("alarm") -> plays the audio file alarm.mp3
   // playAudioLoop("warningAlarm") -> plays the audio file warningAlarm.mp3
@@ -266,39 +263,45 @@ function addMinutes(addMinutes){
   }
 
 
-  /// STOPWATCH CODING ITS NOT PRETTY
-
-  let usingStopwatch = false; // Determines whether or not the Stopwatch function should start when appropriate buttons are clicked
+  /// STOPWATCH CODING IT'S NOT PRETTY
+  let usingStopwatch = false; // Determines whether or not the Stopwatch function should start when appropriate buttons are clicked  Automatically false.
   let startTime; // to keep track of the start time
   let stopwatchInterval; // to keep track of the interval
   let elapsedPausedTime = 0; // to keep track of the elapsed time while stopped
 
   // Debug TODO: Remove before push
   function useStopwatch() {
-    usingStopwatch = true;
+    usingStopwatch = usingStopwatch ? false: true; // Toggles usingStopwatch
+    console.log("Stopwatch Started: " + usingStopwatch);
   }
   // Debug
 
-  // Stopwatch Event Listener
+  // Stopwatch Event Listener: start, pause, restart
   document.addEventListener('click', function(event) {
     if (event.target.matches('#start') && usingStopwatch) startStopwatch();
-    else if (event.target.matches('#pause')) pauseStopwatch();
-    else if (event.target.matches('#stop')) stopStopwatch();
+    else if (event.target.matches('#pause') && usingStopwatch) pauseStopwatch();
+    else if (event.target.matches('#restart') && usingStopwatch) restartStopwatch();
 });
 
   // Stopwatch
   function startStopwatch() {
-    alert("Started Stopwatch")
+    console.log("Stopwatch Started")
+    
   }
   
-  function stopStopwatch() {
-    if (usingStopwatch) {
-
-    }
+  function pauseStopwatch() {
+    console.log("Stopwatch Paused")
   }
 
-  function resetStopwatch() {
-    if (usingStopwatch) {
-
-    }
+  function restartStopwatch() {
+    console.log("Stopwatch Restarted")
   }
+
+  function startNewTime(minutes){
+    const clockDisplay = document.getElementById("MyClockDisplay");
+
+    clockDisplay.classList.add('shrink', 'fade');
+
+    console.log(minutes);
+    
+};

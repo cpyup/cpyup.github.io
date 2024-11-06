@@ -263,10 +263,10 @@ function addMinutes(addMinutes){
   }
 
 
-  /// STOPWATCH CODING IT'S NOT PRETTY
+  // STOPWATCH METHODS
   let usingStopwatch = false; // Determines whether or not the Stopwatch function should start when appropriate buttons are clicked  Automatically false.
   let startTime; // to keep track of the start time
-  let stopwatchInterval; // to keep track of the interval
+  let stopwatchInterval; // to keep track of the interval (how often the stopwatch updates.)
   let elapsedPausedTime = 0; // to keep track of the elapsed time while stopped
 
   function useStopwatch() {
@@ -275,7 +275,7 @@ function addMinutes(addMinutes){
     console.log("Stopwatch Active: " + usingStopwatch);
   }
 
-  // Stopwatch Event Listener: start, pause, restart
+  // Stopwatch Event Listeners: start, pause, restart
   document.addEventListener('click', function(event) {
     if (event.target.matches('#start') && usingStopwatch) startStopwatch();
     else if (event.target.matches('#pause') && usingStopwatch) pauseStopwatch();
@@ -287,15 +287,17 @@ function addMinutes(addMinutes){
     console.log("Stopwatch Started")
     if (!stopwatchInterval) { // If stopwatch doesn't have an interval
         startTime = new Date().getTime() - elapsedPausedTime;
-        stopwatchInterval = setInterval(updateStopwatch, 10); // updates every second
+        stopwatchInterval = setInterval(updateStopwatch, 10);
     }
   }
   
   function pauseStopwatch(isRestart) {
     if (!isRestart) {console.log("Stopwatch Paused")} 
-    clearInterval(stopwatchInterval); // stop the interval from updating
-    elapsedPausedTime = new Date().getTime() - startTime; // calculate amount of time paused
-    stopwatchInterval = null; // reset the interval variable
+    if (stopwatchInterval) {
+        clearInterval(stopwatchInterval); // stop the interval from updating
+        elapsedPausedTime = new Date().getTime() - startTime; // calculate amount of time paused
+        stopwatchInterval = null; // reset the interval variable
+    }
 }
 
   function restartStopwatch() {
@@ -320,11 +322,3 @@ function addMinutes(addMinutes){
     // add a leading zero if the number is less than 10
     return (number < 10 ? "0" : "") + number;
   }
-
-  function startNewTime(minutes){
-    const clockDisplay = document.getElementById("MyClockDisplay");
-
-    clockDisplay.classList.add('shrink', 'fade');
-
-    console.log(minutes);
-};

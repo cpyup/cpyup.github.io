@@ -1,10 +1,9 @@
-
 function showTime() {  
     const now = new Date();
     let time = now.toLocaleTimeString('en-US');
     document.getElementById("MyClockDisplay").textContent = time;
     setTimeout(showTime, 100);
-  }
+}
 
 var remainingTime; // Total remaining time in seconds
 var timerInterval;
@@ -133,7 +132,6 @@ function addMinutes(addMinutes){
     startTimer();
   };
 
-
   function customTime(){
     customMinutes = prompt("Enter time in minutes:");
       if (customTime) {
@@ -245,7 +243,7 @@ function addMinutes(addMinutes){
   
   // AUDIO CONTROL
 
-  // Plays audio from specified elementID. 
+  // Plays audio from specified elementID
   // ID for the alarm = "alarm" ID for Warning Alarm = "warningAlarm"
   // Ex. playAudioLoop("alarm") -> plays the audio file alarm.mp3
   // playAudioLoop("warningAlarm") -> plays the audio file warningAlarm.mp3
@@ -262,4 +260,65 @@ function addMinutes(addMinutes){
     audio = document.getElementById(audio);
     audio.loop = false;
     audio.pause();
+  }
+
+
+  // STOPWATCH METHODS
+  let usingStopwatch = false; // Determines whether or not the Stopwatch function should start when appropriate buttons are clicked  Automatically false.
+  let startTime; // to keep track of the start time
+  let stopwatchInterval; // to keep track of the interval (how often the stopwatch updates.)
+  let elapsedPausedTime = 0; // to keep track of the elapsed time while stopped
+
+  function useStopwatch() {
+    usingStopwatch = usingStopwatch ? false: true; // Toggles usingStopwatch
+    document.getElementById("stopwatchStatus").innerHTML = "Stopwatch Buttons Active: " + usingStopwatch;
+    console.log("Stopwatch Active: " + usingStopwatch);
+  }
+
+  // Stopwatch Event Listeners: start, pause, restart
+  document.addEventListener('click', function(event) {
+    if (event.target.matches('#start') && usingStopwatch) startStopwatch();
+    else if (event.target.matches('#pause') && usingStopwatch) pauseStopwatch();
+    else if (event.target.matches('#restart') && usingStopwatch) restartStopwatch();
+});
+
+  // Stopwatch info from: https://www.educative.io/answers/how-to-create-a-stopwatch-in-javascript
+  function startStopwatch() {
+    console.log("Stopwatch Started")
+    if (!stopwatchInterval) { // If stopwatch doesn't have an interval
+        startTime = new Date().getTime() - elapsedPausedTime;
+        stopwatchInterval = setInterval(updateStopwatch, 10);
+    }
+  }
+  
+  function pauseStopwatch(isRestart) {
+    if (!isRestart) {console.log("Stopwatch Paused")} 
+    if (stopwatchInterval) {
+        clearInterval(stopwatchInterval); // stop the interval from updating
+        elapsedPausedTime = new Date().getTime() - startTime; // calculate amount of time paused
+        stopwatchInterval = null; // reset the interval variable
+    }
+}
+
+  function restartStopwatch() {
+    console.log("Stopwatch Restarted")
+    pauseStopwatch(true); // stops the interval, and passes true so that it does not log the "Stopwatch Paused"
+    elapsedPausedTime = 0; // reset the elapsed pause time variable
+    document.getElementById("stopwatch").innerHTML = "00:00:00.000"; // reset display
+  }
+
+  function updateStopwatch() {
+    let currentTime = new Date().getTime(); // get current time in milliseconds
+    let elapsedTime = currentTime - startTime; // calculate the elapsed time in milliseconds
+    let milliseconds = Math.floor((elapsedTime % 1000) / 10).toString().padStart(2, '0'); // show only the first two digits of milliseconds
+    let seconds = Math.floor(elapsedTime / 1000) % 60; // calculate seconds
+    let minutes = Math.floor(elapsedTime / 1000 / 60) % 60; // calculate minutes
+    let hours = Math.floor(elapsedTime / 1000 / 60 / 60); // calculate hours
+    let displayTime = pad(hours) + ":" + pad(minutes) + ":" + pad(seconds) + "." + milliseconds; // format display time
+    document.getElementById("stopwatch").innerHTML = displayTime; // update the display
+  }
+
+  function pad(number) {
+    // add a leading zero if the number is less than 10
+    return (number < 10 ? "0" : "") + number;
   }

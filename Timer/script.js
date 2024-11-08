@@ -9,7 +9,24 @@ var time = "";
 showTime();
 
 document.getElementById("customMinButton").addEventListener("click", function() {
-    document.getElementById("customMinContainer").classList.remove("hidden");
+    const customMinContainer = document.getElementById("customMinContainer");
+    
+    // Toggle the hidden class to show/hide the container
+    if (customMinContainer.classList.contains("hidden")) {
+        customMinContainer.classList.remove("hidden");
+        customMinContainer.style.display = "block"; // Ensure it is visible
+    } else {
+        customMinContainer.classList.add("hidden");
+        customMinContainer.style.display = "none"; // Ensure it is hidden
+    }
+});
+
+
+document.getElementById("timerBtn").addEventListener("click", function() {
+    // Show or hide the button row when the Timer button is clicked
+    const buttonRow = document.querySelector('.button-row');
+    buttonRow.classList.toggle('hidden');
+
 });
 
 document.getElementById("startCustomMin").addEventListener("click", function() {

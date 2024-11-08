@@ -11,6 +11,7 @@ var timerElement;
 var customMinutes;
 var timerRunning = false;
 
+
   let time = "";
   showTime();
   
@@ -24,7 +25,8 @@ var timerRunning = false;
     else if (event.target.matches('#stop')) stopTimer();
     else if (event.target.matches('#addTime')) addMinutes(1);
     else if (event.target.matches('#pause')) pauseTimer();
-    else if (event.target.matches('#start')) startTimer();
+    else if (event.target.matches('#start')) 
+        if(!timerRunning){startTimer();}
     else if (event.target.matches('#restart')) restartTimer();
 });
 // ==============================================
@@ -97,6 +99,7 @@ function startTimer() {
                 document.body.removeChild(timerElement);
                 resetClockDisplay();
             }, 5000);
+            timerRunning = false;
         } else {
             if (remainingTime <= 10 && !alarmPlaying) {
                 playAudioLoop("alarm"); // Play the alarm in the last 5 seconds
@@ -116,6 +119,7 @@ function startTimer() {
       }
       resetClockDisplay();
       location.reload();
+      timerRunning = false;
   }
   
 function addMinutes(addMinutes){
@@ -133,7 +137,17 @@ function addMinutes(addMinutes){
     startTimer();
   };
 
-
+  function restartTimer() {
+    function restartTimer() {
+        clearInterval(timerInterval); // Clear any existing timer
+        remainingTime = lastSetTime; // Reset remaining time to last set time
+        timerElement.textContent = formatTime(remainingTime); // Update the display
+    
+        setTime(lastSetTime);
+        startTimer(); // Restart the timer
+    }
+    
+}
   function customTime(){
     customMinutes = prompt("Enter time in minutes:");
       if (customTime) {

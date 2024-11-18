@@ -1,6 +1,6 @@
 function showTime() {  
     const now = new Date();
-    let time = now.toLocaleTimeString('en-US');
+    let time = now.toLocaleTimeString('en-US',{timeZone: selectedZone});
     document.getElementById("MyClockDisplay").textContent = time;
     setTimeout(showTime, 100);
 }
@@ -11,6 +11,7 @@ var timerElement;
 var customMinutes;
 var timerRunning = false;
 var addMinutes;
+let selectedZone = 'EST'; // ezpz timezone setting, just waiting for UI
 
 
   let time = "";
@@ -52,7 +53,6 @@ function getTargetTimeInput(){
   
   function calculateTargetTime(targetHours,targetMinutes){
   	// subtract currentTime from target time
-    // should likely move time calculations to seconds rather than minutes, otherwise seconds is ignored in target
     let targetTime = new Date();
     let tH = targetHours - targetTime.getHours();
     let tM = targetMinutes - targetTime.getMinutes();

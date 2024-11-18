@@ -23,6 +23,7 @@ var addMinutes;
     else if (event.target.matches('#thirtyMin')) setTime(30);
     else if (event.target.matches('#oneHour')) setTime(60);
     else if (event.target.matches('#customTimer')) customTime();
+	else if (event.target.matches('#customTarget')) getTargetTimeInput();
     else if (event.target.matches('#addMin')) addMinutes(1);
     else if (event.target.matches('#stop')) stopTimer();
     else if (event.target.matches('#pause')) pauseTimer();
@@ -40,6 +41,23 @@ let alarmPlaying = false; // Keep track of whether the alarm is allowed to play
 // Add event listener for toggling sound/mute
 soundIcon.addEventListener('click', toggleAudio);
 muteIcon.addEventListener('click', toggleAudio);
+
+function getTargetTimeInput(){
+  	// Input will be received as a time HH:mm
+    targetTime = prompt("Enter target time as 'HH:mm'");
+    let [hours, minutes] = targetTime.split(':').map(Number);
+	setTime(calculateTargetTime(hours,minutes));
+	startTimer();
+  }
+  
+  function calculateTargetTime(targetHours,targetMinutes){
+  	// subtract currentTime from target time
+    // should likely move time calculations to seconds rather than minutes, otherwise seconds is ignored in target
+    let targetTime = new Date();
+    let tH = targetHours - targetTime.getHours();
+    let tM = targetMinutes - targetTime.getMinutes();
+    return tM += tH * 60;    
+  }
 
 function toggleAudio() {
     // Only allow the alarm to play if the timer is running and time is 5 seconds or less

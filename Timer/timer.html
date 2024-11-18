@@ -39,8 +39,34 @@
             </div>
         </div>
 
+        <!-- Audio Preload -->
+         <audio id="warningAlarm" src="audio/warningAlarm.mp3" preload="auto"></audio>
+         <audio id="alarm" src="audio/warningAlarm.mp3" preload="auto"></audio>
+
         <!-- Fullscreen Icon -->
-        <img src="full-screen.png" id="fullscreenicon" width="75" height="75" onclick="clickImg(this)" />
+        <img src="images/full-screen.png" id="fullscreenicon" width="75" height="75" onclick="clickImg(this)" />
+        
+        <!-- Audio Icons for sound on and mute functionality -->
+        <img src="../Timer/images/sound_and_mute_icon-01.png" id="soundIcon" alt="Sound On" width="50" height="50" style="display: block;" />
+        <img src="../Timer/images/sound_and_mute_icon-02.png" id="muteIcon" alt="Sound Off" width="50" height="50" style="display: none;" />
+
+        <!--Debug Stopwatch-->
+        <!--In order to use, press "Stopwatch Buttons Active:", then press Start. Play/Pause will pause the stopwatch. To resume, press "Start."-->>
+            <h2>Stopwatch</h2>
+            <div id="stopwatch">00:00:00.000</div>
+            <br>
+            <button id="stopwatchStatus" onclick="useStopwatch()">Stopwatch Buttons Active: false</button>
+            <br>
+        </body>
+        <br>
+        <br>
+        <!--Debug Stopwatch-->
+                <button id="addMin">+1</button>
+                <button id="restart">Restart</button>
+                <button id="stop">Stop</button>
+                <button id="pause">Pause</button>
+                <button id="start">Start</button>
+				<!-- <a href="#" id="customTarget">Custom - Target</a> -->
     </div>
 
     <div id="MyClockDisplay" class="clock" onload="showTime()"></div>

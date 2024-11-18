@@ -5,11 +5,12 @@ function showTime() {
     setTimeout(showTime, 100);
 }
 
-var remainingTime; // Total remaining time in seconds
+let remainingTime; // Total remaining time in seconds
 var timerInterval;
 var timerElement;
 var customMinutes;
 var timerRunning = false;
+var addMinutes;
 
 
   let time = "";
@@ -22,12 +23,12 @@ var timerRunning = false;
     else if (event.target.matches('#thirtyMin')) setTime(30);
     else if (event.target.matches('#oneHour')) setTime(60);
     else if (event.target.matches('#customTimer')) customTime();
+    else if (event.target.matches('#addMin')) addMinutes(1);
     else if (event.target.matches('#stop')) stopTimer();
-    else if (event.target.matches('#addTime')) addMinutes(1);
     else if (event.target.matches('#pause')) pauseTimer();
+    else if (event.target.matches('#restart')) restartTimer();
     else if (event.target.matches('#start')) 
         if(!timerRunning){startTimer();}
-    else if (event.target.matches('#restart')) restartTimer();
 });
 // ==============================================
 // Functionality to toggle between sound and mute
@@ -76,6 +77,7 @@ function setTime(minutes){
 };
 
 function pauseTimer(){
+    
     if(timerRunning){
         clearInterval(timerInterval);
         timerRunning = false
@@ -88,6 +90,7 @@ function pauseTimer(){
 }
 
 function startTimer() {
+    
     timerRunning = true
     timerInterval = setInterval(() => {
         if (remainingTime <= 0) {
@@ -112,6 +115,7 @@ function startTimer() {
     
 }  
   function stopTimer() {
+    
       clearInterval(timerInterval);
       if (timerElement) {
           document.body.removeChild(timerElement);
@@ -123,31 +127,28 @@ function startTimer() {
   }
   
 function addMinutes(addMinutes){
-
-    clearInterval(timerInterval);
-    if (timerElement) {
-        document.body.removeChild(timerElement);
-        timerElement = null;
-    }
     
-    remainingTime = remainingTime / 60 + addMinutes;
+        if(timerRunning){
+            clearInterval(timerInterval);
 
-   setTime(remainingTime);
-    
-    startTimer();
+            remainingTime = (remainingTime / 60) + addMinutes;
+
+            setTime(remainingTime);
+            
+            startTimer();
+        }
   };
 
-  function restartTimer() {
     function restartTimer() {
-        clearInterval(timerInterval); // Clear any existing timer
-        remainingTime = lastSetTime; // Reset remaining time to last set time
-        timerElement.textContent = formatTime(remainingTime); // Update the display
+        clearInterval(timerInterval);
+        timerElement = null;
+        resetClockDisplay();
+        
+
+        customTime();
+        startTimer();
+    };
     
-        setTime(lastSetTime);
-        startTimer(); // Restart the timer
-    }
-    
-}
   function customTime(){
     customMinutes = prompt("Enter time in minutes:");
       if (customTime) {

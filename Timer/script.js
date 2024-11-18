@@ -17,11 +17,11 @@ var addMinutes;
   showTime();
   
   document.addEventListener('click', function(event) {
-    if (event.target.matches('#oneMin')) setTime(1);
-    else if (event.target.matches('#fiveMin')) setTime(5);
-    else if (event.target.matches('#tenMin')) setTime(10);
-    else if (event.target.matches('#thirtyMin')) setTime(30);
-    else if (event.target.matches('#oneHour')) setTime(60);
+    if (event.target.matches('#oneMin')) setTime(60);
+    else if (event.target.matches('#fiveMin')) setTime(300);
+    else if (event.target.matches('#tenMin')) setTime(600);
+    else if (event.target.matches('#thirtyMin')) setTime(1800);
+    else if (event.target.matches('#oneHour')) setTime(3600);
     else if (event.target.matches('#customTimer')) customTime();
 	else if (event.target.matches('#customTarget')) getTargetTimeInput();
     else if (event.target.matches('#addMin')) addMinutes(1);
@@ -56,7 +56,8 @@ function getTargetTimeInput(){
     let targetTime = new Date();
     let tH = targetHours - targetTime.getHours();
     let tM = targetMinutes - targetTime.getMinutes();
-    return tM += tH * 60;    
+	let tS = targetTime.getSeconds();
+    return ((tM += tH * 60) * 60)-tS;  
   }
 
 function toggleAudio() {
@@ -76,10 +77,10 @@ function toggleAudio() {
 }
 
 // 
-function setTime(minutes){
+function setTime(seconds){
     const clockDisplay = document.getElementById("MyClockDisplay");
   
-    remainingTime = minutes * 60;
+    remainingTime = seconds;
     lastSetTime = remainingTime;
 
     clockDisplay.classList.add('shrink', 'fade');
@@ -141,12 +142,12 @@ function startTimer() {
     timerRunning = false;
   }
   
-function addMinutes(addMinutes){
+function addMinutes(minutes){
     
         if(timerRunning){
             stopTimer();
 
-            remainingTime = (remainingTime / 60) + addMinutes;
+            remainingTime += minutes * 60;
 
             setTime(remainingTime);
             
@@ -163,8 +164,8 @@ function addMinutes(addMinutes){
     
   function customTime(){
     customMinutes = prompt("Enter time in minutes:");
-      if (customTime) {
-          setTime(parseInt(customMinutes));
+      if (customMinutes) {
+          setTime(parseInt(customMinutes*60));
       }
   };
   

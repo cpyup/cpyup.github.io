@@ -134,20 +134,17 @@ function startTimer() {
 }  
   function stopTimer() {
     
-      clearInterval(timerInterval);
-      if (timerElement) {
-          document.body.removeChild(timerElement);
-          timerElement = null;
-      }
-      resetClockDisplay();
-      location.reload();
-      timerRunning = false;
+    clearInterval(timerInterval);
+    document.body.removeChild(timerElement);
+                resetClockDisplay();
+    
+    timerRunning = false;
   }
   
 function addMinutes(addMinutes){
     
         if(timerRunning){
-            clearInterval(timerInterval);
+            stopTimer();
 
             remainingTime = (remainingTime / 60) + addMinutes;
 
@@ -158,10 +155,7 @@ function addMinutes(addMinutes){
   };
 
     function restartTimer() {
-        clearInterval(timerInterval);
-        timerElement = null;
-        resetClockDisplay();
-        
+        stopTimer();
 
         customTime();
         startTimer();

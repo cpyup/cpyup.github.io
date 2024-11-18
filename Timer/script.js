@@ -1,3 +1,11 @@
+// Enum to handle valid timezones, set selectedZone with enum value from UI
+const timezones = Object.freeze({
+	PACIFIC: 'PST',
+	MOUNTAIN: 'MST',
+	CENTRAL: 'CST',
+	EASTERN: 'EST',
+});
+
 function showTime() {  
     const now = new Date();
     let time = now.toLocaleTimeString('en-US',{timeZone: selectedZone});
@@ -11,7 +19,9 @@ var timerElement;
 var customMinutes;
 var timerRunning = false;
 var addMinutes;
-let selectedZone = 'EST'; // ezpz timezone setting, just waiting for UI
+let selectedZone = timezones.EASTERN; // Currently selected timezone
+
+
 
 
   let time = "";

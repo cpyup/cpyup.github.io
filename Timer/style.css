@@ -9,8 +9,8 @@
 
 #start {
     position: relative;
-    top: 190px;
-    left: 440px;
+    top: 300px;
+    left: 285px;
     background-color: orange;
     border: 2px solid black;
     cursor: pointer;
@@ -24,8 +24,8 @@
 
 #pause {
     position: relative;
-    top: 190px;
-    left: 440px;
+    top: 300px;
+    left: 285px;
     background-color: orange;
     border: 2px solid black;
     cursor: pointer;
@@ -39,8 +39,8 @@
 
 #addMin {
     position: relative;
-    top: 190px;
-    left: 440px;
+    top: 300px;
+    left: 285px;
     background-color: orange;
     border: 2px solid black;
     cursor: pointer;
@@ -54,8 +54,8 @@
 
 #restart {
     position: relative;
-    top: 190px;
-    left: 440px;
+    top: 300px;
+    left: 285px;
     background-color: orange;
     border: 2px solid black;
     cursor: pointer;
@@ -68,8 +68,8 @@
 }
 #stop {
     position: relative;
-    top: 190px;
-    left: 440px;
+    top: 300px;
+    left: 285px;
     background-color: orange;
     border: 2px solid black;
     cursor: pointer;

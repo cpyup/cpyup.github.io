@@ -24,6 +24,12 @@ const soundIcon = document.getElementById('soundIcon');
 const muteIcon = document.getElementById('muteIcon');
 let isMuted = false;
 let alarmPlaying = false; // Keep track of whether the alarm is allowed to play
+  // STOPWATCH METHODS
+  let usingStopwatch = false; // Determines whether or not the Stopwatch function should start when appropriate buttons are clicked  Automatically false.
+  let startTime; // to keep track of the start time
+  let stopwatchInterval; // to keep track of the interval (how often the stopwatch updates.)
+  let elapsedPausedTime = 0; // to keep track of the elapsed time while stopped
+
 
 
 
@@ -325,11 +331,6 @@ function addMinutes(minutes){
   }
 
 
-  // STOPWATCH METHODS
-  let usingStopwatch = false; // Determines whether or not the Stopwatch function should start when appropriate buttons are clicked  Automatically false.
-  let startTime; // to keep track of the start time
-  let stopwatchInterval; // to keep track of the interval (how often the stopwatch updates.)
-  let elapsedPausedTime = 0; // to keep track of the elapsed time while stopped
 
   function useStopwatch() {
     usingStopwatch = usingStopwatch ? false: true; // Toggles usingStopwatch

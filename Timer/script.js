@@ -20,12 +20,37 @@ var customMinutes;
 var timerRunning = false;
 var addMinutes;
 let selectedZone = timezones.EASTERN; // Currently selected timezone
+const soundIcon = document.getElementById('soundIcon');
+const muteIcon = document.getElementById('muteIcon');
+let isMuted = false;
+let alarmPlaying = false; // Keep track of whether the alarm is allowed to play
 
 
 
 
   let time = "";
   showTime();
+
+  document.getElementById("customMinButton").addEventListener("click", function() {
+    const customMinContainer = document.getElementById("customMinContainer");
+    
+    // Toggle the hidden class to show/hide the container
+    if (customMinContainer.classList.contains("hidden")) {
+        customMinContainer.classList.remove("hidden");
+        customMinContainer.style.display = "block"; // Ensure it is visible
+    } else {
+        customMinContainer.classList.add("hidden");
+        customMinContainer.style.display = "none"; // Ensure it is hidden
+    }
+});
+
+
+document.getElementById("timerBtn").addEventListener("click", function() {
+    // Show or hide the button row when the Timer button is clicked
+    const buttonRow = document.querySelector('.button-row');
+    buttonRow.classList.toggle('hidden');
+
+});
   
   document.addEventListener('click', function(event) {
     if (event.target.matches('#oneMin')) setTime(60);
@@ -42,16 +67,9 @@ let selectedZone = timezones.EASTERN; // Currently selected timezone
     else if (event.target.matches('#start')) 
         if(!timerRunning){startTimer();}
 });
-// ==============================================
-// Functionality to toggle between sound and mute
-const soundIcon = document.getElementById('soundIcon');
-const muteIcon = document.getElementById('muteIcon');
-let isMuted = false;
-let alarmPlaying = false; // Keep track of whether the alarm is allowed to play
-
 // Add event listener for toggling sound/mute
-soundIcon.addEventListener('click', toggleAudio);
-muteIcon.addEventListener('click', toggleAudio);
+soundIcon.addEventListener('click', toggleAudio());
+muteIcon.addEventListener('click', toggleAudio());
 
 function getTargetTimeInput(){
   	// Input will be received as a time HH:mm

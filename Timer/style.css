@@ -8,76 +8,87 @@
 }
 
 #start {
-    position: relative;
-    top: 300px;
-    left: 285px;
+    position: fixed;
+    bottom: 33%;
+    right: 33%;
     background-color: orange;
     border: 2px solid black;
     cursor: pointer;
     padding: 10px;
     border-radius: 10px;
     margin-bottom: 5px; /* Space between the timer button and the minute buttons */
-    width: 75px;  /* Adjust width */
-    height: 33px; /* Adjust height */
+    width: 6%;  /* Adjust width */
+    height: 4%; /* Adjust height */
+    font-family: "Saira Condensed";
+    text-align: center;
     
 }
 
 #pause {
-    position: relative;
-    top: 300px;
-    left: 285px;
+    position: fixed;
+    bottom: 33%;
+    left: 40%;
     background-color: orange;
     border: 2px solid black;
     cursor: pointer;
     padding: 10px;
     border-radius: 10px;
     margin-bottom: 5px; /* Space between the timer button and the minute buttons */
-    width: 75px;  /* Adjust width */
-    height: 33px; /* Adjust height */
+    width: 6%;  /* Adjust width */
+    height: 4%; /* Adjust height */
+    font-family: "Saira Condensed";
+    text-align: center;
+    
     
 }
 
 #addMin {
-    position: relative;
-    top: 300px;
-    left: 285px;
+    position: fixed;
+    bottom: 33%;
+    left: 33%;
     background-color: orange;
     border: 2px solid black;
     cursor: pointer;
     padding: 10px;
     border-radius: 10px;
     margin-bottom: 5px; /* Space between the timer button and the minute buttons */
-    width: 75px;  /* Adjust width */
-    height: 33px; /* Adjust height */
+    width: 6%;  /* Adjust width */
+    height: 4%; /* Adjust height */
+    font-family: "Saira Condensed";
+    text-align: center;
     
 }
 
 #restart {
-    position: relative;
-    top: 300px;
-    left: 285px;
+    position: fixed;
+    bottom: 33%;
+    right: calc(40% + 7px);
     background-color: orange;
     border: 2px solid black;
     cursor: pointer;
     padding: 10px;
     border-radius: 10px;
     margin-bottom: 5px; /* Space between the timer button and the minute buttons */
-    width: 75px;  /* Adjust width */
-    height: 33px; /* Adjust height */
+    width: 6%;  /* Adjust width */
+    height: 4%; /* Adjust height */
+    font-family: "Saira Condensed";
+    text-align: center;
     
 }
 #stop {
-    position: relative;
-    top: 300px;
-    left: 285px;
+    position: fixed;
+    bottom: 33%;
+    left: 47%;
     background-color: orange;
     border: 2px solid black;
     cursor: pointer;
     padding: 10px;
     border-radius: 10px;
     margin-bottom: 5px; /* Space between the timer button and the minute buttons */
-    width: 75px;  /* Adjust width */
-    height: 33px; /* Adjust height */
+    width: 6%;  /* Adjust width */
+    height: 4%; /* Adjust height */
+    font-family: "Saira Condensed";
+    text-align: center;
     
 }
 
@@ -365,12 +376,11 @@ canvas {
 /* Timer display styling */
 
 #timerDisplay {
-    position: absolute;
-    color: #000000;
+    background-color: orange;
+    border: 2px solid black;
 	font-size: clamp(48px, 5vw, 500px);
     font-family: "Saira Condensed";
     text-align: center;
-    background: linear-gradient(184deg, rgba(219, 159, 38, 1) 0%, rgba(255, 218, 1, 1) 60%, rgba(219, 159, 38, 1) 100%);
     border-radius: 15px;
     box-shadow: 0 3px 20px 0 rgba(0, 0, 0, 0.2), 0 3px 30px 0 rgba(10, 20, 10, 10.19);
 	width: 38%;

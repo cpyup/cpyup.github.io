@@ -376,6 +376,7 @@ canvas {
 /* Timer display styling */
 
 #timerDisplay {
+    position: fixed;
     background-color: orange;
     border: 2px solid black;
 	font-size: clamp(48px, 5vw, 500px);

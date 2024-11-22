@@ -24,6 +24,7 @@ const soundIcon = document.getElementById('soundIcon');
 const muteIcon = document.getElementById('muteIcon');
 let isMuted = false;
 let alarmPlaying = false; // Keep track of whether the alarm is allowed to play
+var restartTime;
 
     // STOPWATCH METHODS
     let usingStopwatch = false; // Determines whether or not the Stopwatch function should start when appropriate buttons are clicked  Automatically false.
@@ -111,6 +112,7 @@ function toggleAudio() {
 
 // 
 function setTime(seconds){
+    remainingTime = seconds;
     const clockDisplay = document.getElementById("MyClockDisplay");
   
     remainingTime = seconds;
@@ -174,7 +176,7 @@ function startTimer() {
     
     clearInterval(timerInterval);
     document.body.removeChild(timerElement);
-                resetClockDisplay();
+        resetClockDisplay();
     
     timerRunning = false;
   }
@@ -195,7 +197,7 @@ function addMinutes(minutes){
     function restartTimer() {
         stopTimer();
 
-        customTime();
+        setTime(lastSetTime);
         startTimer();
     };
     

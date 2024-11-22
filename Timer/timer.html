@@ -5,72 +5,17 @@
     <title>Year Up Timer</title>
     <link rel="stylesheet" href="./style.css" />
 </head>
-<body>
-    <div id="particles-js">
-        <!-- Timer Drop Down Menu -->
-        <div class="button-container">
-            <!-- Timer Button -->
-            <button class="timer-btn" id="timerBtn">
-                <img src="../Timer/images/timer-icon.png" alt="Timer" width="75" height="75">
-            </button>
-            <div class="button-row hidden">
-                <!-- Circular Time Buttons -->
-                <div class="timer-options">
-                    <button class="timer-option" id="oneMin">1 min</button>
-                    <button class="timer-option" id="fiveMin">5 min</button>
-                    <button class="timer-option" id="tenMin">10 min</button>
-                    <button class="timer-option" id="fifteenMin">15 min</button>
-                    <button class="timer-option" id="thirtyMin">30 min</button>
-                    <button class="timer-option" id="oneHour">1 hr</button>
-                </div>
-            
-                <!-- Custom Min button, input, and start button -->
-                <div class="rounded-options">
-                    <div id="customMinGroup">
-                        <button class="rounded-rectangle" id="customMinButton">Custom Min</button>
-                        <!-- Custom Min Input and Start button (Initially hidden) -->
-                        <div id="customMinContainer" class="hidden">
-                            <input type="number" id="customMinInput" placeholder="Enter Minutes" />
-                            <button id="startCustomMin">Start</button>
-                        </div>
-                    </div>
-                    <button class="rounded-rectangle" id="stopwatch">Stopwatch</button>
-                </div>
-            </div>
+<body id="background-image">
+    <div class="timer-container" >
+        <div class="whitespace-item"></div>
+        <div class="timer-card">
+            <ul class="timer-buttons">
+                <li>Stop</li>
+                <li>Start</li>
+                <li>Stopwatch</li>
+            </ul>
         </div>
-
-        <!-- Audio Preload -->
-         <audio id="warningAlarm" src="audio/warningAlarm.mp3" preload="auto"></audio>
-         <audio id="alarm" src="audio/alarm.mp3" preload="auto"></audio>
-         <audio id="warningAlarmTwo" src="audio/warningAlarmTwo.mp3" preload="auto"></audio>
-
-        <!-- Fullscreen Icon -->
-        <img src="../Timer/images/full-screen.png" id="fullscreenicon" width="75" height="75" onclick="clickImg(this)" />
-        
-        <!-- Audio Icons for sound on and mute functionality -->
-        <img src="../Timer/images/sound_and_mute_icon-01.png" id="soundIcon" alt="Sound On" width="50" height="50" style="display: block;" />
-        <img src="../Timer/images/sound_and_mute_icon-02.png" id="muteIcon" alt="Sound Off" width="50" height="50" style="display: none;" />
-
-        <!--Debug Stopwatch-->
-        <!--In order to use, press "Stopwatch Buttons Active:", then press Start. Play/Pause will pause the stopwatch. To resume, press "Start."-->>
-            <h2>Stopwatch</h2>
-            <div id="stopwatch">00:00:00.000</div>
-            <br>
-            <button id="stopwatchStatus" onclick="useStopwatch()">Stopwatch Buttons Active: false</button>
-            <br>
-        </body>
-        <br>
-        <br>
-        <!--Debug Stopwatch-->
-                <button id="addMin">+1</button>
-                <button id="restart">Restart</button>
-                <button id="stop">Stop</button>
-                <button id="pause">Pause</button>
-                <button id="start">Start</button>
-				<!-- <a href="#" id="customTarget">Custom - Target</a> -->
+        <div class="extras-card">aaaaa</div>
     </div>
-
-    <div id="MyClockDisplay" class="clock" onload="showTime()"></div>
-    <script src="./script.js"></script>
 </body>
 </html>

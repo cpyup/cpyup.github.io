@@ -24,14 +24,13 @@ const soundIcon = document.getElementById('soundIcon');
 const muteIcon = document.getElementById('muteIcon');
 let isMuted = false;
 let alarmPlaying = false; // Keep track of whether the alarm is allowed to play
-  // STOPWATCH METHODS
-  let usingStopwatch = false; // Determines whether or not the Stopwatch function should start when appropriate buttons are clicked  Automatically false.
-  let startTime; // to keep track of the start time
-  let stopwatchInterval; // to keep track of the interval (how often the stopwatch updates.)
-  let elapsedPausedTime = 0; // to keep track of the elapsed time while stopped
 
-
-
+    // STOPWATCH METHODS
+    let usingStopwatch = false; // Determines whether or not the Stopwatch function should start when appropriate buttons are clicked  Automatically false.
+    let startTime; // to keep track of the start time
+    let stopwatchInterval; // to keep track of the interval (how often the stopwatch updates.)
+    let elapsedPausedTime = 0; // to keep track of the elapsed time while stopped
+  
 
 
   let time = "";
@@ -71,7 +70,7 @@ document.getElementById("timerBtn").addEventListener("click", function() {
     else if (event.target.matches('#pause')) pauseTimer();
     else if (event.target.matches('#restart')) restartTimer();
     else if (event.target.matches('#start')) 
-        if(!timerRunning){startTimer();}
+        if(!timerRunning && !usingStopwatch){startTimer();}
 });
 // Add event listener for toggling sound/mute
 soundIcon.addEventListener('click', toggleAudio());
@@ -330,8 +329,6 @@ function addMinutes(minutes){
     audio.pause();
   }
 
-
-
   function useStopwatch() {
     usingStopwatch = usingStopwatch ? false: true; // Toggles usingStopwatch
     document.getElementById("stopwatchStatus").innerHTML = "Stopwatch Buttons Active: " + usingStopwatch;
@@ -385,3 +382,4 @@ function addMinutes(minutes){
     // add a leading zero if the number is less than 10
     return (number < 10 ? "0" : "") + number;
   }
+

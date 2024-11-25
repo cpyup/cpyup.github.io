@@ -106,16 +106,15 @@ function toggleAudio() {
         stopAudioLoop("alarm"); // Mute the sound
         soundIcon.style.display = "none";
         muteIcon.style.display = "block";
+        !isMuted;
     }
-    isMuted = !isMuted;  // Toggle the mute state
+      // Toggle the mute state
 }
 
 // 
 function setTime(seconds){
     remainingTime = seconds;
     const clockDisplay = document.getElementById("MyClockDisplay");
-  
-    remainingTime = seconds;
     lastSetTime = remainingTime;
 
     clockDisplay.classList.add('shrink', 'fade');
@@ -198,7 +197,6 @@ function addMinutes(minutes){
         stopTimer();
 
         setTime(lastSetTime);
-        startTimer();
     };
     
   function customTime(){

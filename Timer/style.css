@@ -83,7 +83,9 @@ body {
     height: 4%; /* Adjust height */
     font-family: "Saira Condensed";
     text-align: center;
-    
+    display: flex;            
+    justify-content: center;   
+    align-items: center;
 }
 
 #pause {
@@ -100,8 +102,9 @@ body {
     height: 4%; /* Adjust height */
     font-family: "Saira Condensed";
     text-align: center;
-    
-    
+    display: flex;            
+    justify-content: center;   
+    align-items: center;
 }
 
 #addMin {
@@ -118,7 +121,9 @@ body {
     height: 4%; /* Adjust height */
     font-family: "Saira Condensed";
     text-align: center;
-    
+    display: flex;            
+    justify-content: center;   
+    align-items: center;
 }
 
 #restart {
@@ -135,7 +140,9 @@ body {
     height: 4%; /* Adjust height */
     font-family: "Saira Condensed";
     text-align: center;
-    
+    display: flex;            
+    justify-content: center;   
+    align-items: center;
 }
 #stop {
     position: fixed;
@@ -151,7 +158,9 @@ body {
     height: 4%; /* Adjust height */
     font-family: "Saira Condensed";
     text-align: center;
-    
+    display: flex;            
+    justify-content: center;   
+    align-items: center;
 }
 
 
@@ -426,6 +435,7 @@ canvas {
 /* Timer display styling */
 
 #timerDisplay {
+    position: fixed;
     background-color: orange;
     border: 2px solid black;
 	font-size: clamp(48px, 5vw, 500px);

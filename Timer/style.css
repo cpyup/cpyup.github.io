@@ -8,13 +8,14 @@
 
 body {
     background-image: url(./images/backgrounds/yuuClockBG2NoLogo.jpg);
-    background-size cover;
+    background-size: cover;
     background-repeat: no-repeat;
     background-size: 100% 100vh;
     font-family: 'Inter';
     color: #FFFFFF;
 }
 
+/* HEADER */
 /* Header Elements */
 nav ul {
     display: flex;
@@ -34,6 +35,54 @@ nav ul {
     font-size: 57px;
     font-weight: bold;
     margin-right: 50px;
+    letter-spacing: 2px;
 }
 
-/*  */
+/* MAIN */
+
+.mainContainer {
+    margin-top: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+/* Clock controls in the middle of the screen used for timer and stopwatch. */
+.clockContainer {
+    
+    display: flex;
+    flex-direction: column;
+    
+    align-items: center;
+    flex-grow: 1;
+}
+
+.addTimeButtons ul{
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0; /* Removes any padding applied by default */
+    margin: 0; /* Removes any margin applied by default */
+}
+
+.clockDisplay {
+
+}
+
+.clockControls {
+    
+}
+
+/* Buttons on the side of the mainContainer that controls Stopwatch, Timer, and Options. */
+.menuButtons {
+    margin-right: 100px;
+}
+
+/* FOOTER */
+/* For the Fullscreen and Mute button. */
+
+.footerContianer{
+
+}

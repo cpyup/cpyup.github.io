@@ -9,7 +9,7 @@ const timezones = Object.freeze({
 function showTime() {  
     const now = new Date();
     let time = now.toLocaleTimeString('en-US',{timeZone: selectedZone});
-    document.getElementById("MyClockDisplay").textContent = time;
+    document.getElementById("headerTime").textContent = time;
     setTimeout(showTime, 100);
 }
 

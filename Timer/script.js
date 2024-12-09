@@ -9,7 +9,7 @@ const timezones = Object.freeze({
 function showTime() {  
     const now = new Date();
     let time = now.toLocaleTimeString('en-US',{timeZone: selectedZone});
-    document.getElementById("headerTime").textContent = time;
+    document.getElementById("headerClock").textContent = time;
     setTimeout(showTime, 100);
 }
 
@@ -37,26 +37,28 @@ var restartTime;
   let time = "";
   showTime();
 
-  document.getElementById("customMinButton").addEventListener("click", function() {
-    const customMinContainer = document.getElementById("customMinContainer");
+//   TODO: Fix bugs with this function
+//   document.getElementById("customMinButton").addEventListener("click", function() {
+//     const customMinContainer = document.getElementById("customMinContainer");
     
-    // Toggle the hidden class to show/hide the container
-    if (customMinContainer.classList.contains("hidden")) {
-        customMinContainer.classList.remove("hidden");
-        customMinContainer.style.display = "block"; // Ensure it is visible
-    } else {
-        customMinContainer.classList.add("hidden");
-        customMinContainer.style.display = "none"; // Ensure it is hidden
-    }
-});
+//     // Toggle the hidden class to show/hide the container
+//     if (customMinContainer.classList.contains("hidden")) {
+//         customMinContainer.classList.remove("hidden");
+//         customMinContainer.style.display = "block"; // Ensure it is visible
+//     } else {
+//         customMinContainer.classList.add("hidden");
+//         customMinContainer.style.display = "none"; // Ensure it is hidden
+//     }
+// });
 
 
-document.getElementById("timerBtn").addEventListener("click", function() {
-    // Show or hide the button row when the Timer button is clicked
-    const buttonRow = document.querySelector('.button-row');
-    buttonRow.classList.toggle('hidden');
+// TODO: Fix bugs with this function, as well.
+// document.getElementById("timerBtn").addEventListener("click", function() {
+//     // Show or hide the button row when the Timer button is clicked
+//     const buttonRow = document.querySelector('.button-row');
+//     buttonRow.classList.toggle('hidden');
 
-});
+// });
   
   document.addEventListener('click', function(event) {
     if (event.target.matches('#oneMin')) setTime(60);
@@ -73,9 +75,11 @@ document.getElementById("timerBtn").addEventListener("click", function() {
     else if (event.target.matches('#start')) 
         if(!timerRunning && !usingStopwatch){startTimer();}
 });
-// Add event listener for toggling sound/mute
-soundIcon.addEventListener('click', toggleAudio());
-muteIcon.addEventListener('click', toggleAudio());
+
+// TODO: Remove this event listener and put in main event listener
+// // Add event listener for toggling sound/mute
+// soundIcon.addEventListener('click', toggleAudio());
+// muteIcon.addEventListener('click', toggleAudio());
 
 function getTargetTimeInput(){
   	// Input will be received as a time HH:mm
@@ -111,23 +115,23 @@ function toggleAudio() {
       // Toggle the mute state
 }
 
-// 
 function setTime(seconds){
     remainingTime = seconds;
-    const clockDisplay = document.getElementById("MyClockDisplay");
+    // const clockDisplay = document.getElementById("mainTimeDisplay");
     lastSetTime = remainingTime;
+    
+    // clockDisplay.classList.add('shrink', 'fade');
 
-    clockDisplay.classList.add('shrink', 'fade');
-
-    // Hide the buttons, inputs, etc.
-    document.querySelector('.button-container').classList.add('hidden-elements');
-    document.getElementById("timerBtn").classList.add('hidden-elements'); // Ensure the Timer button is hidden
+    // // Hide the buttons, inputs, etc.
+    // document.querySelector('.button-container').classList.add('hidden-elements');
+    // document.getElementById("timerBtn").classList.add('hidden-elements'); // Ensure the Timer button is hidden
 
     setTimeout(() => {
-        timerElement = document.createElement("div");
-        timerElement.id = "timerDisplay";
-        document.body.appendChild(timerElement);
-        timerElement.classList.add('grow');
+        let timerElement = document.getElementById("mainTimeDisplay")
+        // timerElement = document.createElement("div");
+        // timerElement.id = "timerDisplay";
+        // document.body.appendChild(timerElement);
+        // timerElement.classList.add('grow');
         timerElement.textContent = formatTime(remainingTime);
     }, 1000);
     
@@ -157,7 +161,7 @@ function startTimer() {
             timerElement.textContent = "Time's Up!";
             setTimeout(() => {
                 document.body.removeChild(timerElement);
-                resetClockDisplay();
+                // resetClockDisplay();
             }, 5000);
             timerRunning = false;
         } else {
@@ -172,12 +176,11 @@ function startTimer() {
     
 }  
   function stopTimer() {
-    
     clearInterval(timerInterval);
-    document.body.removeChild(timerElement);
-        resetClockDisplay();
+    // document.body.removeChild(timerElement);
+    //     resetClockDisplay();
     
-    timerRunning = false;
+    // timerRunning = false;
   }
   
 function addMinutes(minutes){
@@ -212,22 +215,24 @@ function addMinutes(minutes){
       return `${String(minutes).padStart(2, '0')}:${String(remainingSeconds).padStart(2, '0')}`;
   }
   
-  function resetClockDisplay() {
-      const clockDisplay = document.getElementById("MyClockDisplay");
-      clockDisplay.classList.remove('shrink', 'fade');
-  }
-  
-  // Dropdown Menu Toggling
-  document.getElementById("menuIcon").addEventListener("click", function () {
-      var checkfortimer = document.getElementById('timerDisplay');
-      if (checkfortimer) {
-          document.body.removeChild(checkfortimer);
-          resetClockDisplay();
-      } else {
-          var dropdownMenu = document.getElementById("dropdownMenu");
-          dropdownMenu.style.display = (dropdownMenu.style.display === "block") ? "none" : "block";
-      }
-  });
+//   function resetClockDisplay() {
+//       const clockDisplay = document.getElementById("headerClock");
+//       clockDisplay.classList.remove('shrink', 'fade');
+//   }
+
+
+//   Removed because of bugs. TODO: Fix errors with this function.
+//   // Dropdown Menu Toggling
+//   document.getElementById("menuIcon").addEventListener("click", function () {
+//       var checkfortimer = document.getElementById('timerDisplay');
+//       if (checkfortimer) {
+//           document.body.removeChild(checkfortimer);
+//           resetClockDisplay();
+//       } else {
+//           var dropdownMenu = document.getElementById("dropdownMenu");
+//           dropdownMenu.style.display = (dropdownMenu.style.display === "block") ? "none" : "block";
+//       }
+//   });
   
   window.onclick = function (event) {
       if (!event.target.matches('#menuIcon')) {
@@ -280,33 +285,35 @@ function addMinutes(minutes){
       }
   }
   
-  // Hiding UI Icons With Inactivity
-  const fullscreenIcon = document.getElementById('fullscreenicon');
-  const timerIcon = document.getElementById('menuIcon');
-  const dropmenuContent = document.getElementById("dropdownMenu");
-  let inactivityTimeout;
+
+//   TODO: Reimplement Fullscreen after presentation.
+//   // Hiding UI Icons With Inactivity
+//   const fullscreenIcon = document.getElementById('fullscreenicon');
+//   const timerIcon = document.getElementById('menuIcon');
+//   const dropmenuContent = document.getElementById("dropdownMenu");
+//   let inactivityTimeout;
   
-  function showFullscreenIcon() {
-      fullscreenIcon.classList.remove('hidden');
-      timerIcon.classList.remove('hidden');
-      dropmenuContent.classList.remove('hidden');
-  }
+//   function showFullscreenIcon() {
+//       fullscreenIcon.classList.remove('hidden');
+//       timerIcon.classList.remove('hidden');
+//       dropmenuContent.classList.remove('hidden');
+//   }
   
-  function hideFullscreenIcon() {
-      fullscreenIcon.classList.add('hidden');
-      timerIcon.classList.add('hidden');
-      dropmenuContent.classList.add('hidden');
-  }
+//   function hideFullscreenIcon() {
+//       fullscreenIcon.classList.add('hidden');
+//       timerIcon.classList.add('hidden');
+//       dropmenuContent.classList.add('hidden');
+//   }
   
-  function resetInactivityTimeout() {
-      clearTimeout(inactivityTimeout);
-      showFullscreenIcon();
-      inactivityTimeout = setTimeout(hideFullscreenIcon, 1500);
-  }
+//   function resetInactivityTimeout() {
+//       clearTimeout(inactivityTimeout);
+//       showFullscreenIcon();
+//       inactivityTimeout = setTimeout(hideFullscreenIcon, 1500);
+//   }
   
-  document.addEventListener('mousemove', resetInactivityTimeout);
-  document.addEventListener('keydown', resetInactivityTimeout);
-  inactivityTimeout = setTimeout(hideFullscreenIcon, 1500);
+//   document.addEventListener('mousemove', resetInactivityTimeout);
+//   document.addEventListener('keydown', resetInactivityTimeout);
+//   inactivityTimeout = setTimeout(hideFullscreenIcon, 1500);
   
   // AUDIO CONTROL
 

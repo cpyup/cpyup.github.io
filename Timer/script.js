@@ -13,6 +13,9 @@ function showTime() {
     setTimeout(showTime, 100);
 }
 
+const audio = new Audio();
+let alarm = "audio\\alarm.mp3"; 
+let warningAlarm = "audio\\warningAlarm.mp3";
 let remainingTime; // Total remaining time in seconds
 var timerInterval;
 let timerElement = document.getElementById("mainTimeDisplay");
@@ -62,6 +65,7 @@ var restartTime;
   
   document.addEventListener('click', function(event) {
     if (event.target.matches('#oneMin')) setTime(60);
+    else if (event.target.matches('#thirtySec')) setTime(10); // For debugging and presentation purposes.
     else if (event.target.matches('#fiveMin')) setTime(300);
     else if (event.target.matches('#tenMin')) setTime(600);
     else if (event.target.matches('#thirtyMin')) setTime(1800);
@@ -80,6 +84,34 @@ var restartTime;
     
 });
 
+timerElement.addEventListener("input", function (e) {
+    let value = e.target.value;
+
+    // Remove any non-digit characters
+    value = value.replace(/\D/g, "");
+
+    // Add colons to format as HH:MM:SS
+    if (value.length > 2 && value.length <= 4) {
+        value = value.slice(0, 2) + ":" + value.slice(2, 4);
+    } else if (value.length > 4 && value.length <= 6) {
+        value = value.slice(0, 2) + ":" + value.slice(2, 4) + ":" + value.slice(4, 6);
+    } else if (value.length > 6) {
+        value = value.slice(0, 2) + ":" + value.slice(2, 4) + ":" + value.slice(4, 6);
+    }
+
+    // Limit to 8 characters (HH:MM:SS)
+    if (value.length > 8) {
+        value = value.slice(0, 8);
+    }
+
+    // Update the input field with the formatted value
+    e.target.value = value;
+});
+
+timerElement.addEventListener("keyup", function (e) {
+    console.log("EnterPressed")
+});
+
 // TODO: Remove this event listener and put in main event listener
 // // Add event listener for toggling sound/mute
 // soundIcon.addEventListener('click', toggleAudio());
@@ -92,26 +124,40 @@ function getTargetTimeInput(){
 	setTime(calculateTargetTime(hours,minutes));
 	startTimer();
   }
+
+function getTargetTimeInput(targetTime) {
+    let [hours, minutes, seconds] = targetTime.split(':').map(Number);
+    setTime()
+}
   
-  function calculateTargetTime(targetHours,targetMinutes){
-  	// subtract currentTime from target time
-    let targetTime = new Date();
-    let tH = targetHours - targetTime.getHours();
-    let tM = targetMinutes - targetTime.getMinutes();
-	let tS = targetTime.getSeconds();
-    return ((tM += tH * 60) * 60)-tS;  
-  }
+//   function calculateTargetTime(targetHours,targetMinutes){
+//   	// subtract currentTime from target time
+//     let targetTime = new Date();
+//     let tH = targetHours - targetTime.getHours();
+//     let tM = targetMinutes - targetTime.getMinutes();
+// 	let tS = targetTime.getSeconds();
+//     return ((tM += tH * 60) * 60)-tS;  
+//   }
+
+function calculateTargetTime(targetHours, targetMinutes, targetSeconds){
+    // subtract currentTime from target time
+  let targetTime = new Date();
+  let tH = targetHours - targetTime.getHours();
+  let tM = targetMinutes - targetTime.getMinutes();
+  let tS = targetSeconds - targetTime.getSeconds();
+  return ((tM += tH * 60) * 60)-tS;  
+}
 
 function toggleAudio() {
     // Only allow the alarm to play if the timer is running and time is 5 seconds or less
     if (remainingTime > 5 || !alarmPlaying) return;
 
     if (isMuted) {
-        playAudioLoop("alarm"); // Resume playing the sound
+        playAudioLoop(alarm); // Resume playing the sound
         soundIcon.style.display = "block";
         muteIcon.style.display = "none";
     } else {
-        stopAudioLoop("alarm"); // Mute the sound
+        stopAudioLoop(alarm); // Mute the sound
         soundIcon.style.display = "none";
         muteIcon.style.display = "block";
         !isMuted;
@@ -178,10 +224,11 @@ function startTimer() {
             timerRunning = false;
         } else {
             if (remainingTime <= 10 && !alarmPlaying) {
-                playAudioLoop("alarm"); // Play the alarm in the last 5 seconds
+                playAudioLoop(alarm); // Play the alarm in the last 5 seconds
                 alarmPlaying = true;    // Allow sound control
             }
             remainingTime--;
+            console.log(remainingTime);
             timerElement.textContent = formatTime(remainingTime);
         }
     }, 1000);
@@ -200,9 +247,7 @@ function addMinutes(minutes){
     
         if(timerRunning){
             stopTimer();
-            console.log(remainingTime);
             remainingTime += minutes * 60;
-            console.log(remainingTime);
             setTime(remainingTime);
             
             startTimer();
@@ -346,8 +391,9 @@ function addMinutes(minutes){
   // ID for the alarm = "alarm" ID for Warning Alarm = "warningAlarm"
   // Ex. playAudioLoop("alarm") -> plays the audio file alarm.mp3
   // playAudioLoop("warningAlarm") -> plays the audio file warningAlarm.mp3
-  function playAudioLoop(audio) {
-    audio = document.getElementById(audio);
+  function playAudioLoop(audioPath) {
+    audio.src = audioPath;
+    audio.load();
     audio.loop = true;
     audio.play();
   }
@@ -356,7 +402,6 @@ function addMinutes(minutes){
   // Alarm = "alarm", Warning Alarm = "warningAlarm"
   // Ex. stopAudioLoop("alarm") -> stops the pauses alarm.mp3 and stops looping alarm.mp3
   function stopAudioLoop(audio) {
-    audio = document.getElementById(audio);
     audio.loop = false;
     audio.pause();
   }

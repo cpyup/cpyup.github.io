@@ -97,18 +97,31 @@ nav ul {
 
 .mainTimeContainer
 {
-background-color:#180056;
-height: 227px;
-width: 500px;
-border-radius: 90px;
-border: 5px solid #ffffff;
+    margin: 0 auto;
+    background-color:#180056;
+    height: 227px;
+    width: 500px;
+    border-radius: 90px;
+    border: 5px solid #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+input[type="text"] {
+    display: block;
+    margin: 0 auto;
 }
 
 .mainTimeDisplay {
+    
     text-align: center;
     font-size: 60px;
-    vertical-align: middle;
     line-height: 110px;
+    background-color: transparent;
+    color: #FFFFFF;
+    outline:none;
+    border: none;
 }
 
 .clockControls ul {

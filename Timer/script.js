@@ -108,8 +108,12 @@ timerElement.addEventListener("input", function (e) {
     e.target.value = value;
 });
 
-timerElement.addEventListener("keyup", function (e) {
-    console.log("EnterPressed")
+timerElement.addEventListener("keyup", function (event) {
+
+    if (event.target.matches('#mainTimeDisplay') && event.key === 'Enter') {
+        let targetTime = event.target.value;
+        getTargetTimeInput(targetTime);
+    }
 });
 
 // TODO: Remove this event listener and put in main event listener
@@ -117,36 +121,40 @@ timerElement.addEventListener("keyup", function (e) {
 // soundIcon.addEventListener('click', toggleAudio());
 // muteIcon.addEventListener('click', toggleAudio());
 
-function getTargetTimeInput(){
-  	// Input will be received as a time HH:mm
-    targetTime = prompt("Enter target time as 'HH:mm'");
-    let [hours, minutes] = targetTime.split(':').map(Number);
-	setTime(calculateTargetTime(hours,minutes));
-	startTimer();
-  }
-
-function getTargetTimeInput(targetTime) {
-    let [hours, minutes, seconds] = targetTime.split(':').map(Number);
-    setTime()
-}
-  
-//   function calculateTargetTime(targetHours,targetMinutes){
-//   	// subtract currentTime from target time
-//     let targetTime = new Date();
-//     let tH = targetHours - targetTime.getHours();
-//     let tM = targetMinutes - targetTime.getMinutes();
-// 	let tS = targetTime.getSeconds();
-//     return ((tM += tH * 60) * 60)-tS;  
+// function getTargetTimeInput(){
+//   	// Input will be received as a time HH:mm
+//     targetTime = prompt("Enter target time as 'HH:mm'");
+//     let [hours, minutes] = targetTime.split(':').map(Number);
+// 	setTime(calculateTargetTime(hours,minutes));
+// 	startTimer();
 //   }
 
-function calculateTargetTime(targetHours, targetMinutes, targetSeconds){
-    // subtract currentTime from target time
-  let targetTime = new Date();
-  let tH = targetHours - targetTime.getHours();
-  let tM = targetMinutes - targetTime.getMinutes();
-  let tS = targetSeconds - targetTime.getSeconds();
-  return ((tM += tH * 60) * 60)-tS;  
+function getTargetTimeInput(targetTime) {
+    times = targetTime.split(':');
+    
+    switch (times.length) {
+        case 1 :
+            console.log("Seconds.");
+            break;
+        case 2:
+            console.log("Minutes");
+            break;
+        case 3:
+            console.log("Hours");
+            break;
+    }
+    
+    timerElement.readOnly = true;
 }
+  
+  function calculateTargetTime(targetHours,targetMinutes){
+  	// subtract currentTime from target time
+    let targetTime = new Date();
+    let tH = targetHours - targetTime.getHours();
+    let tM = targetMinutes - targetTime.getMinutes();
+	let tS = targetTime.getSeconds();
+    return ((tM += tH * 60) * 60)-tS;  
+  }
 
 function toggleAudio() {
     // Only allow the alarm to play if the timer is running and time is 5 seconds or less

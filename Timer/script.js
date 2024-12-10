@@ -130,31 +130,39 @@ timerElement.addEventListener("keyup", function (event) {
 //   }
 
 function getTargetTimeInput(targetTime) {
-    times = targetTime.split(':');
-    
+    let times = targetTime.split(':');
+    times = times.reverse(); // Reversing because the input event listener is weird and backwards!!!!!!
     switch (times.length) {
         case 1 :
-            console.log("Seconds.");
+            newTime = Number(times[0]);
+            setTime(newTime);
+            console.log("Seconds: " + " " + newTime);
             break;
         case 2:
-            console.log("Minutes");
+            newTime = Number(times[1]) * 60  + Number(times[0]);
+            setTime(newTime);
+            console.log("Minutes: " + newTime);
             break;
         case 3:
-            console.log("Hours");
+            newTime = Number(times[2]) * 3600 + Number(times[1]) * 60 + Number(times[0]);
+            setTime(newTime);
+            console.log("Hours: " + times[2] + " Minutes: " + times[1] + " Seconds " + times[0]);
             break;
+        default:
+            console.error("Invalid input");
+            return;
     }
-    
-    timerElement.readOnly = true;
+    // timerElement.readOnly = true;
 }
   
-  function calculateTargetTime(targetHours,targetMinutes){
-  	// subtract currentTime from target time
-    let targetTime = new Date();
-    let tH = targetHours - targetTime.getHours();
-    let tM = targetMinutes - targetTime.getMinutes();
-	let tS = targetTime.getSeconds();
-    return ((tM += tH * 60) * 60)-tS;  
-  }
+//   function calculateTargetTime(targetHours,targetMinutes){
+//   	// subtract currentTime from target time
+//     let targetTime = new Date();
+//     let tH = targetHours - targetTime.getHours();
+//     let tM = targetMinutes - targetTime.getMinutes();
+// 	let tS = targetTime.getSeconds();
+//     return ((tM += tH * 60) * 60)-tS;  
+//   }
 
 function toggleAudio() {
     // Only allow the alarm to play if the timer is running and time is 5 seconds or less

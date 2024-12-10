@@ -19,7 +19,7 @@
                     <a href="https://www.yearup.org/" class="logo" target="_blank"><img src="./images/icons/NewYUU-logo.svg" alt="Year Up United Logo Link"></a>
                 </li>
                 <li>
-                    <p class="headerClock" id="headerClock">00:00:00 PM EST</p>
+                    <p class="headerClock" id="headerClock" onload="showTime()">00:00:00 PM EST</p>
                 </li>
             </ul>
         </nav>
@@ -31,21 +31,21 @@
             
             <div class="addTimeButtons">
                 <ul>
-                    <li><button class="buttons_addTime" type="button" id="addTimeButton1">+0:30</button></li>
-                    <li><button class="buttons_addTime" type="button" id="addTimeButton2">+1:00</button></li>
-                    <li><button class="buttons_addTime" type="button" id="addTimeButton3">+5:00</button></li>
+                    <li><button class="buttons_addTime" type="button" id="addThirtySec">+0:30</button></li>
+                    <li><button class="buttons_addTime" type="button" id="addMin">+1:00</button></li>
+                    <li><button class="buttons_addTime" type="button" id="addFiveMin">+5:00</button></li>
                 </ul>
             </div>
 
-            <div class="mainTimeDisplay" id="mainTimeDisplay">
-                <p>00:00:00</p>
+            <div class="mainTimeContainer" >
+                <p class="mainTimeDisplay" id="mainTimeDisplay">00:00:00</p>
             </div>
 
             <div class="clockControls">
                 <ul>
-                    <li><button type="timerCtrl" class="targetTime" id="customTimer">Target</li>
-                    <li><button type="timerCtrl" class="startTime">Start</li>
-                    <li><button type="timerCtrl" class="stopTime">Stop</li>
+                    <li><button type="timerCtrl" class="targetTime" id="tenMin">Target</li>
+                    <li><button type="timerCtrl" class="startTime" id="start">Start</li>
+                    <li><button type="timerCtrl" class="stopTime" id="stop">Stop</li>
                 </ul>
             </div>
 

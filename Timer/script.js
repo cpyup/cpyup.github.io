@@ -15,7 +15,7 @@ function showTime() {
 
 let remainingTime; // Total remaining time in seconds
 var timerInterval;
-var timerElement;
+let timerElement = document.getElementById("mainTimeDisplay");
 var customMinutes;
 var timerRunning = false;
 var addMinutes;
@@ -68,12 +68,16 @@ var restartTime;
     else if (event.target.matches('#oneHour')) setTime(3600);
     else if (event.target.matches('#customTimer')) customTime();
 	else if (event.target.matches('#customTarget')) getTargetTimeInput();
+    else if (event.target.matches('#addThirtySec')) addMinutes(.5);
     else if (event.target.matches('#addMin')) addMinutes(1);
+    else if (event.target.matches('#addFiveMin')) addMinutes(5);
     else if (event.target.matches('#stop')) stopTimer();
     else if (event.target.matches('#pause')) pauseTimer();
     else if (event.target.matches('#restart')) restartTimer();
-    else if (event.target.matches('#start')) 
-        if(!timerRunning && !usingStopwatch){startTimer();}
+    else if (event.target.matches('#start')) {
+        if(!timerRunning){startTimer();}
+    }
+    
 });
 
 // TODO: Remove this event listener and put in main event listener
@@ -127,13 +131,21 @@ function setTime(seconds){
     // document.getElementById("timerBtn").classList.add('hidden-elements'); // Ensure the Timer button is hidden
 
     setTimeout(() => {
-        let timerElement = document.getElementById("mainTimeDisplay")
+        // let timerElement = document.getElementById("mainTimeDisplay")
         // timerElement = document.createElement("div");
         // timerElement.id = "timerDisplay";
         // document.body.appendChild(timerElement);
         // timerElement.classList.add('grow');
+        const timeDisplay = timerElement.querySelector("p");
+        if (timeDisplay) {
+            timeDisplay.textContent = formatTime(remainingTime);
+        } else {
+            const newDisplay = document.createElement("p");
+            newDisplay.textContent = formatTime(remainingTime);
+            timerElement.appendChild(newDisplay);
+        }
         timerElement.textContent = formatTime(remainingTime);
-    }, 1000);
+    }, 500);
     
 };
 
@@ -161,7 +173,7 @@ function startTimer() {
             timerElement.textContent = "Time's Up!";
             setTimeout(() => {
                 document.body.removeChild(timerElement);
-                // resetClockDisplay();
+                resetClockDisplay();
             }, 5000);
             timerRunning = false;
         } else {
@@ -175,26 +187,39 @@ function startTimer() {
     }, 1000);
     
 }  
+
   function stopTimer() {
     clearInterval(timerInterval);
     // document.body.removeChild(timerElement);
     //     resetClockDisplay();
     
-    // timerRunning = false;
+    timerRunning = false;
   }
   
 function addMinutes(minutes){
     
         if(timerRunning){
             stopTimer();
-
+            console.log(remainingTime);
             remainingTime += minutes * 60;
-
+            console.log(remainingTime);
             setTime(remainingTime);
             
             startTimer();
         }
   };
+
+  function addSeconds(seconds) {
+    if (timerRunning) {
+        stopTimer();
+
+        remainingTime += seconds;
+
+        setTime(remainingTime);
+
+        startTimer();
+    }
+}
 
     function restartTimer() {
         stopTimer();

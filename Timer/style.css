@@ -95,7 +95,7 @@ nav ul {
     font-size: 33px;
 }
 
-.mainTimeDisplay
+.mainTimeContainer
 {
 background-color:#180056;
 height: 227px;
@@ -104,7 +104,7 @@ border-radius: 90px;
 border: 5px solid #ffffff;
 }
 
-.mainTimeDisplay p {
+.mainTimeDisplay {
     text-align: center;
     font-size: 60px;
     vertical-align: middle;

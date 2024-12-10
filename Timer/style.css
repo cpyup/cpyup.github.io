@@ -153,7 +153,7 @@ input[type="text"] {
 }
 
 .startTime svg {
-
+    pointer-events: none;
 }
 
 .stopTime {
@@ -165,7 +165,7 @@ input[type="text"] {
 }
 
 .stopTime svg{
-    
+    pointer-events: none;
 }
 
 .targetTime {

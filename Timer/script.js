@@ -29,11 +29,11 @@ let isMuted = false;
 let alarmPlaying = false; // Keep track of whether the alarm is allowed to play
 var restartTime;
 
-    // STOPWATCH METHODS
-    let usingStopwatch = false; // Determines whether or not the Stopwatch function should start when appropriate buttons are clicked  Automatically false.
-    let startTime; // to keep track of the start time
-    let stopwatchInterval; // to keep track of the interval (how often the stopwatch updates.)
-    let elapsedPausedTime = 0; // to keep track of the elapsed time while stopped
+    // // STOPWATCH METHODS
+    // let usingStopwatch = false; // Determines whether or not the Stopwatch function should start when appropriate buttons are clicked  Automatically false.
+    // let startTime; // to keep track of the start time
+    // let stopwatchInterval; // to keep track of the interval (how often the stopwatch updates.)
+    // let elapsedPausedTime = 0; // to keep track of the elapsed time while stopped
   
 
 
@@ -90,19 +90,31 @@ timerElement.addEventListener("input", function (e) {
     // Remove any non-digit characters
     value = value.replace(/\D/g, "");
 
-    // Add colons to format as HH:MM:SS
-    if (value.length > 2 && value.length <= 4) {
-        value = value.slice(0, 2) + ":" + value.slice(2, 4);
-    } else if (value.length > 4 && value.length <= 6) {
-        value = value.slice(0, 2) + ":" + value.slice(2, 4) + ":" + value.slice(4, 6);
-    } else if (value.length > 6) {
-        value = value.slice(0, 2) + ":" + value.slice(2, 4) + ":" + value.slice(4, 6);
+    // Limit to 8 characters (HH:MM:SS)
+    if (value.length >= 6) {
+        value = value.slice(0, 6);
     }
 
-    // Limit to 8 characters (HH:MM:SS)
-    if (value.length > 8) {
-        value = value.slice(0, 8);
+    if (value.length > 2 && value.length <= 3) {
+        value = value.slice(0, 1) + ":" + value.slice(1, 3);
+    } else if (value.length > 3 && value.length <= 4 ) {
+        value = value.slice(0, 2) + ":" + value.slice(2, 4);
+    } else if (value.length > 4 && value.length <= 5) {
+        value = value.slice(0, 1) + ":" + value.slice(1, 3) + ":" + value.slice(3, 6);
+    } else if (value.length > 5 && value.length <= 6) {
+        value = value.slice(0,2) + ":" + value.slice(2, 4) + ":" + value.slice(4, 6);
     }
+
+    // Add colons to format as HH:MM:SS
+    // if (value.length > 2 && value.length <= 4) {
+    //     value = value.slice(0, 2) + ":" + value.slice(2, 4);
+    // } else if (value.length > 4 && value.length <= 6) {
+    //     value = value.slice(0, 2) + ":" + value.slice(2, 4) + ":" + value.slice(4, 6);
+    // } else if (value.length > 6) {
+    //     value = value.slice(0, 2) + ":" + value.slice(2, 4) + ":" + value.slice(4, 6);
+    // }
+
+    
 
     // Update the input field with the formatted value
     e.target.value = value;
@@ -141,12 +153,14 @@ function getTargetTimeInput(targetTime) {
         case 2:
             newTime = Number(times[1]) * 60  + Number(times[0]);
             setTime(newTime);
-            console.log("Minutes: " + newTime);
+            console.log(" Minutes: " + times[1] + " Seconds " + times[0]);
+            console.log("Converted to Seconds: " + newTime);
             break;
         case 3:
             newTime = Number(times[2]) * 3600 + Number(times[1]) * 60 + Number(times[0]);
             setTime(newTime);
             console.log("Hours: " + times[2] + " Minutes: " + times[1] + " Seconds " + times[0]);
+            console.log("Converted to Seconds: " + newTime);
             break;
         default:
             console.error("Invalid input");
@@ -182,6 +196,7 @@ function toggleAudio() {
 }
 
 function setTime(seconds){
+    console.log("Time set to: " + seconds);
     remainingTime = seconds;
     // const clockDisplay = document.getElementById("mainTimeDisplay");
     lastSetTime = remainingTime;
@@ -198,7 +213,7 @@ function setTime(seconds){
         // timerElement.id = "timerDisplay";
         // document.body.appendChild(timerElement);
         // timerElement.classList.add('grow');
-        const timeDisplay = timerElement.querySelector("p");
+        const timeDisplay = timerElement.value;
         if (timeDisplay) {
             timeDisplay.textContent = formatTime(remainingTime);
         } else {
@@ -225,8 +240,8 @@ function pauseTimer(){
 }
 
 function startTimer() {
-    
-    timerRunning = true
+    timerRunning = true;
+    console.log("timeRunning: " + timerRunning);
     timerInterval = setInterval(() => {
         if (remainingTime <= 0) {
             clearInterval(timerInterval);
@@ -240,12 +255,12 @@ function startTimer() {
             timerRunning = false;
         } else {
             if (remainingTime <= 10 && !alarmPlaying) {
-                playAudioLoop(alarm); // Play the alarm in the last 5 seconds
+                // playAudioLoop(alarm); // Play the alarm in the last 5 seconds
                 alarmPlaying = true;    // Allow sound control
             }
             remainingTime--;
             console.log(remainingTime);
-            timerElement.textContent = formatTime(remainingTime);
+            timerElement.value = formatTime(remainingTime);
         }
     }, 1000);
     
@@ -257,6 +272,7 @@ function startTimer() {
     //     resetClockDisplay();
     
     timerRunning = false;
+    console.log("Timer Running: " + timerRunning);
   }
   
 function addMinutes(minutes){
@@ -288,17 +304,18 @@ function addMinutes(minutes){
         setTime(lastSetTime);
     };
     
-  function customTime(){
-    customMinutes = prompt("Enter time in minutes:");
-      if (customMinutes) {
-          setTime(parseInt(customMinutes*60));
-      }
-  };
+//   function customTime(){
+//     customMinutes = prompt("Enter time in minutes:");
+//       if (customMinutes) {
+//           setTime(parseInt(customMinutes*60));
+//       }
+//   };
   
   function formatTime(seconds) {
-      const minutes = Math.floor(seconds / 60);
-      const remainingSeconds = seconds % 60;
-      return `${String(minutes).padStart(2, '0')}:${String(remainingSeconds).padStart(2, '0')}`;
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const remainingSeconds = seconds % 60;
+    return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(remainingSeconds).padStart(2, '0')}`;
   }
   
 //   function resetClockDisplay() {
@@ -422,57 +439,57 @@ function addMinutes(minutes){
     audio.pause();
   }
 
-  function useStopwatch() {
-    usingStopwatch = usingStopwatch ? false: true; // Toggles usingStopwatch
-    document.getElementById("stopwatchStatus").innerHTML = "Stopwatch Buttons Active: " + usingStopwatch;
-    console.log("Stopwatch Active: " + usingStopwatch);
-  }
+//   function useStopwatch() {
+//     usingStopwatch = usingStopwatch ? false: true; // Toggles usingStopwatch
+//     document.getElementById("stopwatchStatus").innerHTML = "Stopwatch Buttons Active: " + usingStopwatch;
+//     console.log("Stopwatch Active: " + usingStopwatch);
+//   }
 
-  // Stopwatch Event Listeners: start, pause, restart
-  document.addEventListener('click', function(event) {
-    if (event.target.matches('#start') && usingStopwatch) startStopwatch();
-    else if (event.target.matches('#pause') && usingStopwatch) pauseStopwatch();
-    else if (event.target.matches('#restart') && usingStopwatch) restartStopwatch();
-});
+//   // Stopwatch Event Listeners: start, pause, restart
+//   document.addEventListener('click', function(event) {
+//     if (event.target.matches('#start') && usingStopwatch) startStopwatch();
+//     else if (event.target.matches('#pause') && usingStopwatch) pauseStopwatch();
+//     else if (event.target.matches('#restart') && usingStopwatch) restartStopwatch();
+// });
 
-  // Stopwatch info from: https://www.educative.io/answers/how-to-create-a-stopwatch-in-javascript
-  function startStopwatch() {
-    console.log("Stopwatch Started")
-    if (!stopwatchInterval) { // If stopwatch doesn't have an interval
-        startTime = new Date().getTime() - elapsedPausedTime;
-        stopwatchInterval = setInterval(updateStopwatch, 10);
-    }
-  }
+//   // Stopwatch info from: https://www.educative.io/answers/how-to-create-a-stopwatch-in-javascript
+//   function startStopwatch() {
+//     console.log("Stopwatch Started")
+//     if (!stopwatchInterval) { // If stopwatch doesn't have an interval
+//         startTime = new Date().getTime() - elapsedPausedTime;
+//         stopwatchInterval = setInterval(updateStopwatch, 10);
+//     }
+//   }
   
-  function pauseStopwatch(isRestart) {
-    if (!isRestart) {console.log("Stopwatch Paused")} 
-    if (stopwatchInterval) {
-        clearInterval(stopwatchInterval); // stop the interval from updating
-        elapsedPausedTime = new Date().getTime() - startTime; // calculate amount of time paused
-        stopwatchInterval = null; // reset the interval variable
-    }
-}
+//   function pauseStopwatch(isRestart) {
+//     if (!isRestart) {console.log("Stopwatch Paused")} 
+//     if (stopwatchInterval) {
+//         clearInterval(stopwatchInterval); // stop the interval from updating
+//         elapsedPausedTime = new Date().getTime() - startTime; // calculate amount of time paused
+//         stopwatchInterval = null; // reset the interval variable
+//     }
+// }
 
-  function restartStopwatch() {
-    console.log("Stopwatch Restarted")
-    pauseStopwatch(true); // stops the interval, and passes true so that it does not log the "Stopwatch Paused"
-    elapsedPausedTime = 0; // reset the elapsed pause time variable
-    document.getElementById("stopwatch").innerHTML = "00:00:00.000"; // reset display
-  }
+//   function restartStopwatch() {
+//     console.log("Stopwatch Restarted")
+//     pauseStopwatch(true); // stops the interval, and passes true so that it does not log the "Stopwatch Paused"
+//     elapsedPausedTime = 0; // reset the elapsed pause time variable
+//     document.getElementById("stopwatch").innerHTML = "00:00:00.000"; // reset display
+//   }
 
-  function updateStopwatch() {
-    let currentTime = new Date().getTime(); // get current time in milliseconds
-    let elapsedTime = currentTime - startTime; // calculate the elapsed time in milliseconds
-    let milliseconds = Math.floor((elapsedTime % 1000) / 10).toString().padStart(2, '0'); // show only the first two digits of milliseconds
-    let seconds = Math.floor(elapsedTime / 1000) % 60; // calculate seconds
-    let minutes = Math.floor(elapsedTime / 1000 / 60) % 60; // calculate minutes
-    let hours = Math.floor(elapsedTime / 1000 / 60 / 60); // calculate hours
-    let displayTime = pad(hours) + ":" + pad(minutes) + ":" + pad(seconds) + "." + milliseconds; // format display time
-    document.getElementById("stopwatch").innerHTML = displayTime; // update the display
-  }
+//   function updateStopwatch() {
+//     let currentTime = new Date().getTime(); // get current time in milliseconds
+//     let elapsedTime = currentTime - startTime; // calculate the elapsed time in milliseconds
+//     let milliseconds = Math.floor((elapsedTime % 1000) / 10).toString().padStart(2, '0'); // show only the first two digits of milliseconds
+//     let seconds = Math.floor(elapsedTime / 1000) % 60; // calculate seconds
+//     let minutes = Math.floor(elapsedTime / 1000 / 60) % 60; // calculate minutes
+//     let hours = Math.floor(elapsedTime / 1000 / 60 / 60); // calculate hours
+//     let displayTime = pad(hours) + ":" + pad(minutes) + ":" + pad(seconds) + "." + milliseconds; // format display time
+//     document.getElementById("stopwatch").innerHTML = displayTime; // update the display
+//   }
 
-  function pad(number) {
-    // add a leading zero if the number is less than 10
-    return (number < 10 ? "0" : "") + number;
-  }
+//   function pad(number) {
+//     // add a leading zero if the number is less than 10
+//     return (number < 10 ? "0" : "") + number;
+//   }
 

@@ -446,6 +446,10 @@ function addMinutes(minutes){
     audio.pause();
   }
 
+  function changeBackground(backgroundImage) {
+    document.body.style.backgroundImage = `url('${backgroundImage}')`;
+  }
+
 //   function useStopwatch() {
 //     usingStopwatch = usingStopwatch ? false: true; // Toggles usingStopwatch
 //     document.getElementById("stopwatchStatus").innerHTML = "Stopwatch Buttons Active: " + usingStopwatch;

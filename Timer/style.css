@@ -31,37 +31,61 @@ nav ul {
     justify-content: space-between;
     list-style: none;
     align-items: center;
-    max-height: 10vh;
 }
 
-/* Year Up United Logo */
-.logo img {
-    padding-top: 40px;
-    width: 300px;
-    height: auto;
+#addMin {
+    position: fixed;
+    bottom: 33%;
+    left: 33%;
+    background-color: orange;
+    border: 2px solid black;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 5px; /* Space between the timer button and the minute buttons */
+    width: 6%;  /* Adjust width */
+    height: 4%; /* Adjust height */
+    font-family: "Saira Condensed";
+    text-align: center;
+    display: flex;            
+    justify-content: center;   
+    align-items: center;
 }
 
-.headerClock {
-    font-size: 57px;
-    font-weight: bold;
-    margin-right: 50px;
-    letter-spacing: 2px;
-    padding-top: 20px;
+#restart {
+    position: fixed;
+    bottom: 33%;
+    right: calc(40% + 7px);
+    background-color: orange;
+    border: 2px solid black;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 5px; /* Space between the timer button and the minute buttons */
+    width: 6%;  /* Adjust width */
+    height: 4%; /* Adjust height */
+    font-family: "Saira Condensed";
+    text-align: center;
+    display: flex;            
+    justify-content: center;   
+    align-items: center;
 }
-.stopWatch {
-    font-size: 57px;
-    font-weight: bold;
-    margin-right: 50px;
-    letter-spacing: 2px;
-    padding-top: 50px;
-}
-
-
-/* MAIN */
-
-.mainContainer {
-    display: flex;
-    justify-content: center;
+#stop {
+    position: fixed;
+    bottom: 33%;
+    left: 47%;
+    background-color: orange;
+    border: 2px solid black;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 5px; /* Space between the timer button and the minute buttons */
+    width: 6%;  /* Adjust width */
+    height: 4%; /* Adjust height */
+    font-family: "Saira Condensed";
+    text-align: center;
+    display: flex;            
+    justify-content: center;   
     align-items: center;
     width: 100%;
     height: 100%;

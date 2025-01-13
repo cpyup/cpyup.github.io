@@ -34,4 +34,33 @@ timerElement.addEventListener("input", function (e) {
 
     // Update the input field with the formatted value
     e.target.value = value;
-});
+    });
+
+    // New Target Time Function based on truncated input.
+function getTargetTimeInput(targetTime) {
+    let times = targetTime.split(':');
+    times = times.reverse(); // Reversing because the input event listener is weird and backwards!!!!!!
+    switch (times.length) {
+        case 1 :
+            newTime = Number(times[0]);
+            setTime(newTime);
+            console.log("Seconds: " + " " + newTime);
+            break;
+        case 2:
+            newTime = Number(times[1]) * 60  + Number(times[0]);
+            setTime(newTime);
+            console.log(" Minutes: " + times[1] + " Seconds " + times[0]);
+            console.log("Converted to Seconds: " + newTime);
+            break;
+        case 3:
+            newTime = Number(times[2]) * 3600 + Number(times[1]) * 60 + Number(times[0]);
+            setTime(newTime);
+            console.log("Hours: " + times[2] + " Minutes: " + times[1] + " Seconds " + times[0]);
+            console.log("Converted to Seconds: " + newTime);
+            break;
+        default:
+            console.error("Invalid input");
+            return;
+    }
+    // timerElement.readOnly = true;
+}

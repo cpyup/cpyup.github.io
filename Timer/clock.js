@@ -14,10 +14,10 @@ class Clock {
         this.timeZone = timeZone; // Set the timezone
     }
     // Method to get the system's time zone
-    getSystemTimeZone() {
+     getSystemTimeZone() {
         return Intl.DateTimeFormat().resolvedOptions().timeZone;
     }
-    getTimeZone(systemTimeZone){
+     getTimeZone(systemTimeZone){
         const now = new Date(); // Get the current date and time
         return now.toLocaleTimeString('en-US', { timeZone: systemTimeZone});
     }

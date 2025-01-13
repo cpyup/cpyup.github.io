@@ -1,25 +1,40 @@
-
+let timerRunning = false; 
 
 function showTime() {
-    const clock = new Clock(); // Specify the time zone
+    let timeZone;
+    
+    let clock = null; // Specify the time zone
     const clockElement = document.getElementById("headerClock");
 
+    document.addEventListener('click', function(event){
+        if(event.target.matches('PST')) {
+            timeZone = TimeZone.PST
+            console.log("Click")
+        }else{
+            timeZone = TimeZone.EST
+        }
+    });
     // Ensure the element exists before trying to update it
     if (clockElement) {
 
-        //Default for system TimeZone
-        
-        
-        clockElement.textContent = clock.getTimeZone(clock.getSystemTimeZone());
+        clock = new Clock(timeZone)
+
+        clockElement.textContent = clock.getTimeZone(timeZone);
 
         //Switches Time Zone when on click
       /*  document.addEventListener('click', function(event) {
-            if (event.target.matches(ESTButton))  clock.getTimeZone(TimeZone.EST);
-            else if (event.target.matches(CSTButton))clock.getTimeZone(TimeZone.CST);
-            else if (event.target.matches(MSTButton)) clock.getTimeZone(TimeZone.MST);
-            else if (event.target.matches("PST")) clock.getTimeZone(TimeZone.PST);
-            else if (event.target.mathches(EETButton)) clock.getTimeZone(TimeZone.EET); 
+            if (event.target.matches('EST')) clockElement.textContent = clock.getTimeZone(TimeZone.EST);
+            else if (event.target.matches('CST'))clockElement.textContent =clock.getTimeZone(TimeZone.CST);
+            else if (event.target.matches('MST'))clockElement.textContent = clock.getTimeZone(TimeZone.MST);
+            else if (event.target.matches("PST")) {  
+                clock = new Clock(TimeZone.PST);
+                clockElement.textContent = clock.getTimeZone(TimeZone.PST);
+            }
+            else if (event.target.matches('EET'))clockElement.textContent = clock.getTimeZone(TimeZone.EET); 
+            else{clockElement.textContent = clock.getTimeZone(clock.getSystemTimeZone());}
         }); */
+
+        
     }
 
 }
@@ -35,9 +50,12 @@ document.addEventListener('DOMContentLoaded', () => {
     setInterval(showTime, 1000);
 
     // Add event listener for setTimeButton
-    const setTimeButton = document.getElementById('setTimeButton');
-    if (setTimeButton) {
-        setTimeButton.addEventListener('click', () => {
+    const countdownManager = null;
+    const timer = null;
+    const startButton = document.getElementById('start');
+    const stopButton = document.getElementById('stop');
+    if (startButton && !timerRunning) {
+        startButton.addEventListener('click', () => {
             const timeString = document.getElementById('mainTimeDisplay').value.trim();
 
             // Determine the format and extract time components
@@ -84,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if(countdownManager === null){
                     console.log("CountDown is null")
                 }
-                console.log(countdownManager)
+                timerRunning;
                 
                 countdownManager.startCountdown(timer.getMilliSec());
                 
@@ -92,37 +110,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log("Invalid time value. Ensure 00 <= HH < 24, 00 <= MM < 60, 00 <= SS < 60.");
             }
         });
-    } else {
-        console.error("setTimeButton element not found!");
-    }
+    } 
+    if (stopButton && timerRunning) {
+        stopButton.addEventListener('click', () => {
+            console.log("Click stop")
+            countdownManager.stopCount();
+            !timerRunning;
+        });
+    }  
 });
 
 function calcTotalMilliSec(hours, min, sec){
     return (hours * 3600 + min * 60 + sec) * 1000
 };
 
-const stopWatch = new Timer(0); 
 
-document.addEventListener('click', function(event){
-    if(event.target.matches('start'))
-       startStopWatch(stopWatch)
-        setInterval(startStopWatch(stopWatch), 1)
-    
-    if(event.target.matches('start'))
-            clearInterval(stopWatch)
-        
-
-});
-
-function startStopWatch(stopWatch){
-    
-    const stopWatchMan = new CountDownManager(stopWatch);
-
-    console.log("Click")
-    console.log(stopWatch.getMilliSec())
-    stopWatchMan.startCountUp(stopWatch.getMilliSec(), stopWatch);
-    
-}
 
 
 

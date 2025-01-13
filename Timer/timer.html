@@ -2,75 +2,97 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <title>Year Up Timer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Year Up United Timer</title>
     <link rel="stylesheet" href="./style.css" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+    </style>
+    <script src="script.js" async></script>
 </head>
-<body>
-    <div id="particles-js">
-        <!-- Timer Drop Down Menu -->
-        <div class="button-container">
-            <!-- Timer Button -->
-            <button class="timer-btn" id="timerBtn">
-                <img src="../Timer/images/timer-icon.png" alt="Timer" width="75" height="75">
-            </button>
-            <div class="button-row hidden">
-                <!-- Circular Time Buttons -->
-                <div class="timer-options">
-                    <button class="timer-option" id="oneMin">1 min</button>
-                    <button class="timer-option" id="fiveMin">5 min</button>
-                    <button class="timer-option" id="tenMin">10 min</button>
-                    <button class="timer-option" id="fifteenMin">15 min</button>
-                    <button class="timer-option" id="thirtyMin">30 min</button>
-                    <button class="timer-option" id="oneHour">1 hr</button>
+<body> 
+    <!-- Audio Preload -->
+    <audio id="warningAlarm" src="audio/warningAlarm.mp3" preload="auto"></audio>
+    <audio id="alarm" src="audio/alarm.mp3" preload="auto"></audio>
+    <header>   
+        <nav>
+            <ul>
+                <li>
+                    <a href="https://www.yearup.org/" class="logo" target="_blank"><img src="./images/icons/NewYUU-logo.svg" alt="Year Up United Logo Link"></a>
+                </li>
+                <li>
+                    <p class="headerClock" id="headerClock" onload="showTime()">00:00:00 PM EST</p>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <div class="mainContainer">
+            <div class="clockContainer">
+                
+                <div class="addTimeButtons">
+                    <ul>
+                        <li><button class="buttons_addTime" type="button" id="addThirtySec">+0:30</button></li>
+                        <li><button class="buttons_addTime" type="button" id="addMin">+1:00</button></li>
+                        <li><button class="buttons_addTime" type="button" id="addFiveMin">+5:00</button></li>
+                    </ul>
                 </div>
-            
-                <!-- Custom Min button, input, and start button -->
-                <div class="rounded-options">
-                    <div id="customMinGroup">
-                        <button class="rounded-rectangle" id="customMinButton">Custom Min</button>
-                        <!-- Custom Min Input and Start button (Initially hidden) -->
-                        <div id="customMinContainer" class="hidden">
-                            <input type="number" id="customMinInput" placeholder="Enter Minutes" />
-                            <button id="startCustomMin">Start</button>
-                        </div>
-                    </div>
-                    <button class="rounded-rectangle" id="stopwatch">Stopwatch</button>
+
+                <div class="mainTimeContainer" >
+                    <input type="text" class="mainTimeDisplay" id="mainTimeDisplay" placeholder="HH:MM:SS" autocomplete="off">
                 </div>
-            </div>
-        </div>
 
-        <!-- Audio Preload -->
-         <audio id="warningAlarm" src="audio/warningAlarm.mp3" preload="auto"></audio>
-         <audio id="alarm" src="audio/alarm.mp3" preload="auto"></audio>
-         <audio id="warningAlarmTwo" src="audio/warningAlarmTwo.mp3" preload="auto"></audio>
-
-        <!-- Fullscreen Icon -->
-        <img src="../Timer/images/full-screen.png" id="fullscreenicon" width="75" height="75" onclick="clickImg(this)" />
+                <div class="clockControls">
+                    <ul>
+                        <!-- <li><button type="timerCtrl" class="targetTime" id="customTarget">Target</li> -->
+                        <li><button type="timerCtrl" class="startTime" id="start">
+                            <svg width="76" height="76" viewBox="-1 0 7 7" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         
-        <!-- Audio Icons for sound on and mute functionality -->
-        <img src="../Timer/images/sound_and_mute_icon-01.png" id="soundIcon" alt="Sound On" width="50" height="50" style="display: block;" />
-        <img src="../Timer/images/sound_and_mute_icon-02.png" id="muteIcon" alt="Sound Off" width="50" height="50" style="display: none;" />
+                                <title>play [#1003]</title>
+                                <desc>Created with Sketch.</desc>
+                                <defs>
+                            
+                            </defs>
+                                <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <g id="Dribbble-Light-Preview" transform="translate(-347.000000, -3766.000000)" fill="white">
+                                        <g id="icons" transform="translate(56.000000, 160.000000)">
+                                            <path d="M296.494737,3608.57322 L292.500752,3606.14219 C291.83208,3605.73542 291,3606.25002 291,3607.06891 L291,3611.93095 C291,3612.7509 291.83208,3613.26444 292.500752,3612.85767 L296.494737,3610.42771 C297.168421,3610.01774 297.168421,3608.98319 296.494737,3608.57322" id="play-[#1003]">
+                            
+                            </path>
+                                        </g>
+                                    </g>
+                                </g>
+                            </svg>
+                        </li>
 
-        <!--Debug Stopwatch-->
-        <!--In order to use, press "Stopwatch Buttons Active:", then press Start. Play/Pause will pause the stopwatch. To resume, press "Start."-->>
-            <h2>Stopwatch</h2>
-            <div id="stopwatch">00:00:00.000</div>
-            <br>
-            <button id="stopwatchStatus" onclick="useStopwatch()">Stopwatch Buttons Active: false</button>
-            <br>
-        </body>
-        <br>
-        <br>
-        <!--Debug Stopwatch-->
-                <button id="addMin">+1</button>
-                <button id="restart">Restart</button>
-                <button id="stop">Stop</button>
-                <button id="pause">Pause</button>
-                <button id="start">Start</button>
-				<!-- <a href="#" id="customTarget">Custom - Target</a> -->
-    </div>
+                        <li><button type="timerCtrl" class="stopTime" id="stop">
+                            <svg width="46" height="46" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2C16.714 2 19.0711 2 20.5355 3.46447C22 4.92893 22 7.28595 22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12Z" fill="white"/>
+                            </svg>
+                        </li>
+                    </ul>
+                </div>
 
-    <div id="MyClockDisplay" class="clock" onload="showTime()"></div>
-    <script src="./script.js"></script>
+            </div>
+            
+            <!-- NOT YET IMPLEMENTED TODO: ADD BACK ONCE PRESENTATION IS OVER -->
+            <!-- <div class="menuButtons">
+                <ul>
+                    <li><button type="menuCtrl" class="Timer">Timer</li>
+                    <li><button type="menuCtrl" class="Stopwatch">Stopwatch</li>
+                    <li><button type="menuCtrl" class="Settings">Settings</li>
+                </ul>
+            </div> -->
+
+        </div>
+        
+        <footer class="bgButtonContainer">
+            <ul><button onclick="changeBackground('images/backgrounds/yuuClockBG1NoLogo.png')" class="bgButton1">BG1</button></ul>
+            <ul><button onclick="changeBackground('images/backgrounds/yuuClockBG2NoLogo.jpg')" class="bgButton2">BG2</button></ul>
+        </footer>
+    
+    </main>
 </body>
 </html>

@@ -1,57 +1,38 @@
+// Enum to handle valid timezones, set selectedZone with enum value from UI
+const TimeZone = {
+    EST: "America/New_York",
+    PST: "America/Los_Angeles",
+    CST: "America/Chicago",
+    MST: "America/Denver",
+    GMT: "GMT",
+    EET: "Europe/Athens"
+    // Add other time zones as needed
+};
+
 let timerRunning = false; 
 
-function showTime() {
-    let timeZone;
-    
-    let clock = null; // Specify the time zone
-    const clockElement = document.getElementById("headerClock");
 
-    document.addEventListener('click', function(event){
-        if(event.target.matches('PST')) {
-            timeZone = TimeZone.PST
-            console.log("Click")
-        }else{
-            timeZone = TimeZone.EST
-        }
-    });
+function showTime() {
+
+    //let clock = null; // Specify the time zone
+    const clockElement = document.getElementById("headerClock");
     // Ensure the element exists before trying to update it
     if (clockElement) {
 
-        clock = new Clock(timeZone)
+        clock = new Clock(TimeZone.EST)
 
-        clockElement.textContent = clock.getTimeZone(timeZone);
-
-        //Switches Time Zone when on click
-      /*  document.addEventListener('click', function(event) {
-            if (event.target.matches('EST')) clockElement.textContent = clock.getTimeZone(TimeZone.EST);
-            else if (event.target.matches('CST'))clockElement.textContent =clock.getTimeZone(TimeZone.CST);
-            else if (event.target.matches('MST'))clockElement.textContent = clock.getTimeZone(TimeZone.MST);
-            else if (event.target.matches("PST")) {  
-                clock = new Clock(TimeZone.PST);
-                clockElement.textContent = clock.getTimeZone(TimeZone.PST);
-            }
-            else if (event.target.matches('EET'))clockElement.textContent = clock.getTimeZone(TimeZone.EET); 
-            else{clockElement.textContent = clock.getTimeZone(clock.getSystemTimeZone());}
-        }); */
-
-        
+        clockElement.textContent = clock.getTimeZone(TimeZone.EST);
     }
 
 }
 let timerElement = document.getElementById("mainTimeDisplay");
 
-
-
-
 document.addEventListener('DOMContentLoaded', () => {
-    const stopWatch = new Timer(0); 
+   
     // Initialize the clock and update every second
     showTime();
     setInterval(showTime, 1000);
 
-    // Add event listener for setTimeButton
-    const countdownManager = null;
-    const timer = null;
     const startButton = document.getElementById('start');
     const stopButton = document.getElementById('stop');
     if (startButton && !timerRunning) {
@@ -95,29 +76,26 @@ document.addEventListener('DOMContentLoaded', () => {
                 const formattedTime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
                 document.getElementById('mainTimeDisplay').value = formattedTime;
                 const timer = new Timer(calcTotalMilliSec(hours, minutes, seconds))
-                if(timer === null){
-                    console.log("Timer is null")
-                }
                 const countdownManager = new CountDownManager(timer);
-                if(countdownManager === null){
-                    console.log("CountDown is null")
-                }
+            
                 timerRunning;
-                
+                console.log(timer)
                 countdownManager.startCountdown(timer.getMilliSec());
                 
-            } else {
-                console.log("Invalid time value. Ensure 00 <= HH < 24, 00 <= MM < 60, 00 <= SS < 60.");
+                
             }
         });
-    } 
-    if (stopButton && timerRunning) {
-        stopButton.addEventListener('click', () => {
-            console.log("Click stop")
-            countdownManager.stopCount();
-            !timerRunning;
+    }
+    if(stopButton && timerRunning){
+        stopButton.addEventListener('click', ()=>{
+
+        countdownManager.stopCount()
+        !timerRunning
+        console.log(countdownManager)
+        console.log("Click")
         });
-    }  
+    }
+  
 });
 
 function calcTotalMilliSec(hours, min, sec){

@@ -1,4 +1,4 @@
-function loadScript(url)
+/* function loadScript(url)
 {
     var head = document.getElementsByTagName('head')[0];
     var script = document.createElement('script');
@@ -10,4 +10,4 @@ function loadScript(url)
 // Loading individual JS files
 loadScript('js/timerInput.js');
 loadScript('js/clock.js');
-loadScript('js/background.js')
+loadScript('js/background.js') */

@@ -1,4 +1,4 @@
-let timerElement = document.getElementById("mainTimeDisplay");
+/* let timerElement = document.getElementById("mainTimeDisplay");
 
 timerElement.addEventListener("input", function (e) {
     let value = e.target.value;
@@ -63,4 +63,4 @@ function getTargetTimeInput(targetTime) {
             return;
     }
     // timerElement.readOnly = true;
-}
+} */

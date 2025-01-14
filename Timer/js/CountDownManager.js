@@ -16,9 +16,9 @@ class CountDownManager {
         setInterval(() => {
             if (timeInMs > 0) {
                 timeInMs -= 1000; // Decrease by 1 second (1000 milliseconds)
-                const timer = new Timer(timeInMs);
                 
                 // Update the UI with the new time
+                const timer = new Timer(timeInMs);
                 document.getElementById('mainTimeDisplay').value = timer.displayTimer();
 
             }  

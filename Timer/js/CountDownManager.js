@@ -14,31 +14,23 @@ class CountDownManager {
                 timeInMs -= 1000; // Decrease by 1 second (1000 milliseconds)
 
                 // Update the UI with the new time
-                this.timer.remainingTime = timeInMs;
+                this.timer.milliSec = timeInMs;
                 mainTimeDisplay.value = this.timer.displayTimer();
             }
         }, 1000);
     }
 
-    startCountUp(timeInMs, timer){
+    startCountUp(timeInMs, mainTimeDisplay){
 
-        if (timeInMs < 0) {
-            console.log("Invalid time, Stop Watch not started.");
-            return;
-        }
-        // Update the display every second
-        if(timeInMs > 0){
-    setInterval(() => {
-        if(timeInMs <= 0){
-            clearInterval(timeInMs);
-            console.log("Time's Up");
-            timerElement = document.getElementById("mainTimeDisplay");
-        }
-        console.log(timeInMs)
-            timeInMs += 1; // increase by 1 ms
-            // Update the UI with the new time
-            document.getElementById('mainStopWatch').value = timer.displayStopWatch();
-    }, 1)};
+        this.intervalId = setInterval(() => {
+           
+                timeInMs += 1;
+
+                // Update the UI with the new time
+                this.timer.milliSec = timeInMs;
+                mainTimeDisplay.value = this.timer.displayStopWatch();
+            
+        }, 1);
     }
 
     // Stop the countdown manually

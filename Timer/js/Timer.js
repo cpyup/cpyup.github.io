@@ -23,21 +23,26 @@ class Timer{
         return this.milliSec
     }
     // Format time as HH:MM:SS
-    formatTime(milliseconds) {
+    formatTimer(milliseconds) {
         const totalSeconds = Math.floor(milliseconds / 1000);
         const hours = Math.floor(totalSeconds / 3600);
         const minutes = Math.floor((totalSeconds % 3600) / 60);
         const seconds = totalSeconds % 60;
         return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
     }
+    formatStopWatch(milliseconds){
+        const totalSeconds = Math.floor(milliseconds / 1000);
+        const hours = Math.floor(totalSeconds / 3600);
+        const minutes = Math.floor((totalSeconds % 3600) / 60);
+        const seconds = totalSeconds % 60;
+        return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}:${String(milliseconds).padStart(2, '0')}`;
+    }
 
     // Display timer time
     displayTimer() {
-        return this.formatTime(this.remainingTime);
+        return this.formatTimer(this.milliSec);
     }
-
-    // Display stopwatch time (future implementation)
-    displayStopWatch() {
-        return this.formatTime(this.remainingTime);
+    displayStopWatch(){
+        return this.formatStopWatch(this.milliSec);
     }
 }

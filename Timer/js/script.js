@@ -11,7 +11,7 @@ const TimeZone = {
 
 let timerRunning = false; 
 let selectedZone;
-
+let stopWatchRunning = false;
 function showTime() {
     //let clock = null; // Specify the time zone
     const clockElement = document.getElementById("headerClock");
@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const stopButton = document.getElementById('stop');
     const addMin = document.getElementById('addMin');
 
-    if (stopButton && startButton && !timerRunning) {
+    if (stopButton && startButton && !timerRunning && !stopWatchRunning) {
         startButton.addEventListener('click', () => {
             const timeString = timerElement.value.trim();
 
@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 minutes = parseInt(timeString.slice(-4, -2), 10);
                 hours = parseInt(timeString.slice(0, -4), 10);
             } else {
-                console.log("Invalid format. Use HHMMSS, MMSS, MSS, or SS.");
+                console.log("Invalid format. Use HHMMSS, MMSS, MSS,, or M.");
                 return;
             }
 
@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         stopButton.addEventListener('click', () => {
-            if (timerRunning) {
+            if (timerRunning && !stopWatchRunning) {
                 console.log("Stopping timer...");
                 timerRunning = false;
 
@@ -95,6 +95,22 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    document.getElementById("Stopwatch").addEventListener('click', () =>{
+        const stopWatch = new Timer(0);
+        countdownManager = new CountDownManager(stopWatch, timerElement);
+        if(!timerRunning){
+        if(!stopWatchRunning){
+            stopWatchRunning = true;
+            countdownManager.startCountUp(stopWatch.getMilliSec(), timerElement)
+        }
+        else if(stopWatchRunning){
+            stopWatchRunning = false;
+            countdownManager.stopCount(timerElement)
+        }
+    }
+    })
+
    function toggle(id) {
 	const element = document.getElementById(id);
 

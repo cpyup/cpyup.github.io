@@ -10,27 +10,30 @@ const TimeZone = {
 };
 
 let timerRunning = false; 
-let timeZone;
+let selectedZone;
 
 function showTime() {
     //let clock = null; // Specify the time zone
     const clockElement = document.getElementById("headerClock");
     // Ensure the element exists before trying to update it
     if (clockElement) {
-        document.addEventListener('click', function(event){
-            if(event.target.matches('PST')){ 
-                timeZone = TimeZone.PST
-            }
-            else timeZone = clock.getSystemTimeZone();
-        })
-        clock = new Clock(timeZone)
-        clockElement.textContent = clock.getTimeZone(timeZone);
+        document.addEventListener('click', function(event) {
+        if (event.target.matches('#EST')) selectedZone = TimeZone.EST
+        else if (event.target.matches('#CST')) selectedZone = TimeZone.CST
+        else if (event.target.matches('#MST')) selectedZone = TimeZone.MST
+        else if (event.target.matches('#PST')) selectedZone = TimeZone.PST
+        else if (event.target.matches('#EET')) selectedZone = TimeZone.EET
+        else if (event.target.matches('#default')) selectedZone = clock. getSystemTimeZone()
+    })
+        clock = new Clock()
+        clockElement.textContent = clock.getTimeZone(selectedZone);
     }
  
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    setInterval(showTime, 1000);
+    
+    setInterval(showTime, 1);
     let timerElement = document.getElementById("mainTimeDisplay");
 
     const startButton = document.getElementById('start');
@@ -92,6 +95,21 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+   function toggle(id) {
+	const element = document.getElementById(id);
+
+	if (!element)
+		return false;
+
+	element.hidden = !element.hidden;
+
+	return !element.hidden;
+}
+
+document.getElementById('time-zone-button').addEventListener('click', () => {
+	toggle("time-zone-menu");
+	
+}); 
 });
 
 // Helper function

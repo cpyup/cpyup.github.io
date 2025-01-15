@@ -3,6 +3,7 @@ class Clock {
     constructor(timeZone = this.getSystemTimeZone()) { // Default to system's time zone
         this.timeZone = timeZone; // Set the timezone
     }
+    
     // Method to get the system's time zone
      getSystemTimeZone() {
         return Intl.DateTimeFormat().resolvedOptions().timeZone;

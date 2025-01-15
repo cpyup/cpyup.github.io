@@ -9,12 +9,7 @@ class CountDownManager {
         // Start the interval
         this.intervalId = setInterval(() => {
             if (timeInMs <= 0) {
-                clearInterval(this.intervalId); // Stop the interval
-                this.intervalId = null; // Reset interval ID
-
-                // Reset the display to its original state
-                mainTimeDisplay.value = "00:00:00"; // Reset to default
-                console.log("Countdown finished!");
+                this.stopCount(mainTimeDisplay)
             } else {
                 timeInMs -= 1000; // Decrease by 1 second (1000 milliseconds)
 
@@ -47,10 +42,12 @@ class CountDownManager {
     }
 
     // Stop the countdown manually
-     stopCount() {
-        if (this.intervalId) {
-            clearInterval(this.intervalId); // Stop the countdown interval
-            this.intervalId = null;
-        }
+     stopCount(mainTimeDisplay) {
+        clearInterval(this.intervalId); // Stop the interval
+        this.intervalId = null; // Reset interval ID
+
+        // Reset the display to its original state
+        mainTimeDisplay.value = ""; // Reset to default
+        console.log("Countdown finished!");
     }
 }

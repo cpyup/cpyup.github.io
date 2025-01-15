@@ -74,9 +74,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 timerRunning = true;
 
                 // Reset when countdown ends
-                countdownManager.startCountdown(timer.getMilliSec(), () => {
-                    timerElement.value = "00:00:00"; // Reset to default
-                    timerRunning = false;
+                countdownManager.startCountdown(timer.getMilliSec(), timerElement, () => {
+                    countdownManager.stopCount(timerElement);
                 });
             }
         });
@@ -87,10 +86,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 timerRunning = false;
 
                 if (countdownManager) {
-                    countdownManager.stopCountdown();
+                    countdownManager.stopCount(timerElement);
                 }
 
-                timerElement.value = ""; // Optionally reset display on stop
+                //timerElement.value = ""; // Optionally reset display on stop
             }
         });
     }

@@ -35,6 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const startButton = document.getElementById('start');
     const stopButton = document.getElementById('stop');
+    const addMin = document.getElementById('addMin');
 
     if (stopButton && startButton && !timerRunning) {
         startButton.addEventListener('click', () => {
@@ -88,8 +89,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (countdownManager) {
                     countdownManager.stopCount(timerElement);
                 }
-
-                //timerElement.value = ""; // Optionally reset display on stop
             }
         });
     }

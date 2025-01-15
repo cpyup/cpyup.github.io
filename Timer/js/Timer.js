@@ -18,7 +18,10 @@ class Timer{
         return Math.floor((this.milliSec % 60000) / 1000); // 1 second = 1000 milliseconds
     }
 
-
+    addTime(timeToAdd){
+        this.milliSec = timeInMs + timeToAdd;
+        return this.milliSec
+    }
     // Format time as HH:MM:SS
     formatTime(milliseconds) {
         const totalSeconds = Math.floor(milliseconds / 1000);

@@ -10,54 +10,48 @@ const TimeZone = {
 };
 
 let timerRunning = false; 
-
+let timeZone;
 
 function showTime() {
-
     //let clock = null; // Specify the time zone
     const clockElement = document.getElementById("headerClock");
     // Ensure the element exists before trying to update it
     if (clockElement) {
-
-        clock = new Clock(TimeZone.EST)
-
-        clockElement.textContent = clock.getTimeZone(TimeZone.EST);
+        document.addEventListener('click', function(event){
+            if(event.target.matches('PST')){ 
+                timeZone = TimeZone.PST
+            }
+            else timeZone = clock.getSystemTimeZone();
+        })
+        clock = new Clock(timeZone)
+        clockElement.textContent = clock.getTimeZone(timeZone);
     }
-
+ 
 }
-let timerElement = document.getElementById("mainTimeDisplay");
 
 document.addEventListener('DOMContentLoaded', () => {
-   
-    // Initialize the clock and update every second
-    showTime();
     setInterval(showTime, 1000);
+    let timerElement = document.getElementById("mainTimeDisplay");
 
     const startButton = document.getElementById('start');
     const stopButton = document.getElementById('stop');
-    if (startButton && !timerRunning) {
-        startButton.addEventListener('click', () => {
-            const timeString = document.getElementById('mainTimeDisplay').value.trim();
 
-            // Determine the format and extract time components
+    if (stopButton && startButton && !timerRunning) {
+        startButton.addEventListener('click', () => {
+            const timeString = timerElement.value.trim();
+
             let hours = 0, minutes = 0, seconds = 0;
             if (/^\d{0,1}$/.test(timeString)) {
-                // Format: M
                 minutes = parseInt(timeString, 10);
-            } 
-            if (/^\d{1,2}$/.test(timeString)) {
-                // Format: MM
+            } else if (/^\d{1,2}$/.test(timeString)) {
                 minutes = parseInt(timeString, 10);
             } else if (/^\d{2,3}$/.test(timeString)) {
-                // Format: MSS
                 seconds = parseInt(timeString.slice(-2), 10);
                 minutes = parseInt(timeString.slice(0, -2), 10) || 0;
             } else if (/^\d{3,4}$/.test(timeString)) {
-                // Format: MMSS
                 seconds = parseInt(timeString.slice(-2), 10);
                 minutes = parseInt(timeString.slice(0, -2), 10);
             } else if (/^\d{6}$/.test(timeString)) {
-                // Format: HHMMSS
                 seconds = parseInt(timeString.slice(-2), 10);
                 minutes = parseInt(timeString.slice(-4, -2), 10);
                 hours = parseInt(timeString.slice(0, -4), 10);
@@ -66,43 +60,43 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            // Validate range for hours, minutes, and seconds
             if (
                 hours >= 0 && hours < 24 &&
                 minutes >= 0 && minutes < 60 &&
                 seconds >= 0 && seconds < 60
             ) {
-                // Convert to HH:MM:SS format and pass it to setTime
                 const formattedTime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-                document.getElementById('mainTimeDisplay').value = formattedTime;
-                const timer = new Timer(calcTotalMilliSec(hours, minutes, seconds))
-                const countdownManager = new CountDownManager(timer);
-            
-                timerRunning;
-                console.log(timer)
-                countdownManager.startCountdown(timer.getMilliSec());
-                
-                
+                timerElement.value = formattedTime;
+
+                const timer = new Timer(calcTotalMilliSec(hours, minutes, seconds));
+                countdownManager = new CountDownManager(timer, timerElement);
+
+                timerRunning = true;
+
+                // Reset when countdown ends
+                countdownManager.startCountdown(timer.getMilliSec(), () => {
+                    timerElement.value = "00:00:00"; // Reset to default
+                    timerRunning = false;
+                });
+            }
+        });
+
+        stopButton.addEventListener('click', () => {
+            if (timerRunning) {
+                console.log("Stopping timer...");
+                timerRunning = false;
+
+                if (countdownManager) {
+                    countdownManager.stopCountdown();
+                }
+
+                timerElement.value = ""; // Optionally reset display on stop
             }
         });
     }
-    if(stopButton && timerRunning){
-        stopButton.addEventListener('click', ()=>{
-
-        countdownManager.stopCount()
-        !timerRunning
-        console.log(countdownManager)
-        console.log("Click")
-        });
-    }
-  
 });
 
-function calcTotalMilliSec(hours, min, sec){
-    return (hours * 3600 + min * 60 + sec) * 1000
-};
-
-
-
-
-
+// Helper function
+function calcTotalMilliSec(hours, min, sec) {
+    return (hours * 3600 + min * 60 + sec) * 1000;
+}

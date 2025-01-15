@@ -1,66 +1,61 @@
-/* let timerElement = document.getElementById("mainTimeDisplay");
+class TimerInput {
+    constructor(inputElementId, placeholder = "00:00:00") {
+        this.inputElement = document.getElementById(inputElementId);
+        this.placeholder = placeholder;
 
-timerElement.addEventListener("input", function (e) {
-    let value = e.target.value;
-
-    // Remove any non-digit characters
-    value = value.replace(/\D/g, "");
-
-    // Limit to 8 characters (HH:MM:SS)
-    if (value.length >= 6) {
-        value = value.slice(0, 6);
+        // Set initial state
+        if (this.inputElement) {
+            this.inputElement.placeholder = this.placeholder;
+        }
     }
 
-    if (value.length > 2 && value.length <= 3) {
-        value = value.slice(0, 1) + ":" + value.slice(1, 3);
-    } else if (value.length > 3 && value.length <= 4 ) {
-        value = value.slice(0, 2) + ":" + value.slice(2, 4);
-    } else if (value.length > 4 && value.length <= 5) {
-        value = value.slice(0, 1) + ":" + value.slice(1, 3) + ":" + value.slice(3, 6);
-    } else if (value.length > 5 && value.length <= 6) {
-        value = value.slice(0,2) + ":" + value.slice(2, 4) + ":" + value.slice(4, 6);
+    // Parse input into milliseconds
+    parseInput() {
+        if (!this.inputElement) return 0;
+
+        const timeString = this.inputElement.value.trim();
+        let hours = 0,
+            minutes = 0,
+            seconds = 0;
+
+        // Parse based on the format (HH:MM:SS, MMSS, MSS, SS)
+        if (/^\d{0,1}$/.test(timeString)) {
+            seconds = parseInt(timeString, 10);
+        } else if (/^\d{1,2}$/.test(timeString)) {
+            seconds = parseInt(timeString, 10);
+        } else if (/^\d{3,4}$/.test(timeString)) {
+            seconds = parseInt(timeString.slice(-2), 10);
+            minutes = parseInt(timeString.slice(0, -2), 10) || 0;
+        } else if (/^\d{6}$/.test(timeString)) {
+            seconds = parseInt(timeString.slice(-2), 10);
+            minutes = parseInt(timeString.slice(-4, -2), 10);
+            hours = parseInt(timeString.slice(0, -4), 10);
+        } else {
+            console.log("Invalid time format. Use HH:MM:SS, MMSS, MSS, or SS.");
+            return 0;
+        }
+
+        // Convert to milliseconds
+        return (hours * 3600 + minutes * 60 + seconds) * 1000;
     }
 
-    // Add colons to format as HH:MM:SS
-    // if (value.length > 2 && value.length <= 4) {
-    //     value = value.slice(0, 2) + ":" + value.slice(2, 4);
-    // } else if (value.length > 4 && value.length <= 6) {
-    //     value = value.slice(0, 2) + ":" + value.slice(2, 4) + ":" + value.slice(4, 6);
-    // } else if (value.length > 6) {
-    //     value = value.slice(0, 2) + ":" + value.slice(2, 4) + ":" + value.slice(4, 6);
-    // }
-
-    
-
-    // Update the input field with the formatted value
-    e.target.value = value;
-    });
-
-    // New Target Time Function based on truncated input.
-function getTargetTimeInput(targetTime) {
-    let times = targetTime.split(':');
-    times = times.reverse(); // Reversing because the input event listener is weird and backwards!!!!!!
-    switch (times.length) {
-        case 1 :
-            newTime = Number(times[0]);
-            setTime(newTime);
-            console.log("Seconds: " + " " + newTime);
-            break;
-        case 2:
-            newTime = Number(times[1]) * 60  + Number(times[0]);
-            setTime(newTime);
-            console.log(" Minutes: " + times[1] + " Seconds " + times[0]);
-            console.log("Converted to Seconds: " + newTime);
-            break;
-        case 3:
-            newTime = Number(times[2]) * 3600 + Number(times[1]) * 60 + Number(times[0]);
-            setTime(newTime);
-            console.log("Hours: " + times[2] + " Minutes: " + times[1] + " Seconds " + times[0]);
-            console.log("Converted to Seconds: " + newTime);
-            break;
-        default:
-            console.error("Invalid input");
-            return;
+    // Reset the input to its placeholder value
+    reset() {
+        if (this.inputElement) {
+            this.inputElement.value = "";
+            this.inputElement.placeholder = this.placeholder;
+        }
     }
-    // timerElement.readOnly = true;
-} */
+
+    // Format milliseconds into HH:MM:SS and update the input
+    updateDisplay(milliseconds) {
+        if (!this.inputElement) return;
+
+        const totalSeconds = Math.floor(milliseconds / 1000);
+        const hours = Math.floor(totalSeconds / 3600);
+        const minutes = Math.floor((totalSeconds % 3600) / 60);
+        const seconds = totalSeconds % 60;
+
+        this.inputElement.value = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    }
+}

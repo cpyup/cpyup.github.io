@@ -1,6 +1,6 @@
 class Timer{
     constructor(milliSec){
-        this.milliSec = milliSec
+        this.milliSec = milliSec;
     }
     getMilliSec(){
         return this.milliSec;
@@ -19,25 +19,22 @@ class Timer{
     }
 
 
-    // For future stop wathc funciton
+    // Format time as HH:MM:SS
+    formatTime(milliseconds) {
+        const totalSeconds = Math.floor(milliseconds / 1000);
+        const hours = Math.floor(totalSeconds / 3600);
+        const minutes = Math.floor((totalSeconds % 3600) / 60);
+        const seconds = totalSeconds % 60;
+        return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    }
+
+    // Display timer time
+    displayTimer() {
+        return this.formatTime(this.remainingTime);
+    }
+
+    // Display stopwatch time (future implementation)
     displayStopWatch() {
-        const hours = this.getHours();
-        const minutes = this.getMinutes();
-        const seconds = this.getSeconds();
-        const milliseconds = this.getMilliSec();
-        return `${hours}h ${minutes}m ${seconds}s ${milliseconds}ms`;
+        return this.formatTime(this.remainingTime);
     }
-
-    displayTimer(){
-        const hours = this.getHours();
-        const minutes = this.getMinutes();
-        const seconds = this.getSeconds();
-        return `${hours}h ${minutes}m ${seconds}s`;
-    }
-    
-    setTime(timeString) {
-        const [hours, minutes, seconds] = timeString.split(':').map(Number);
-        this.milliseconds = (hours * 3600 + minutes * 60 + seconds) * 1000; // Convert to milliseconds
-    }
-
 }

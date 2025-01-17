@@ -38,10 +38,10 @@ class CountDownManager {
 
         clearInterval(this.intervalId); // Stop the interval
         this.intervalId = null; // Reset interval ID
-
         
         // Reset the display to its original state
         mainTimeDisplay.value = ""; // Reset to default
         console.log("Countdown finished!");
     }
+
 }

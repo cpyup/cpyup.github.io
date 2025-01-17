@@ -33,7 +33,7 @@ function showTime() {
 
 document.addEventListener('DOMContentLoaded', () => {
     
-    setInterval(showTime, 1);
+    setInterval(showTime, 10);
     let timerElement = document.getElementById("mainTimeDisplay");
 
     const startButton = document.getElementById('start');
@@ -96,21 +96,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    document.getElementById("Stopwatch").addEventListener('click', () =>{
-        const stopWatch = new Timer(0);
-        countdownManager = new CountDownManager(stopWatch, timerElement);
-        if(!timerRunning){
-        if(!stopWatchRunning){
-            stopWatchRunning = true;
-            countdownManager.startCountUp(stopWatch.getMilliSec(), timerElement)
-        }
-        else if(stopWatchRunning){
-            stopWatchRunning = false;
-            countdownManager.stopCount(timerElement)
-        }
-    }
-    })
-
    function toggle(id) {
 	const element = document.getElementById(id);
 
@@ -126,9 +111,12 @@ document.getElementById('time-zone-button').addEventListener('click', () => {
 	toggle("time-zone-menu");
 	
 }); 
-});
+
 
 // Helper function
 function calcTotalMilliSec(hours, min, sec) {
     return (hours * 3600 + min * 60 + sec) * 1000;
 }
+});
+
+

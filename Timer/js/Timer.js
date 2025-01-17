@@ -30,13 +30,15 @@ class Timer{
         const seconds = totalSeconds % 60;
         return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
     }
-    formatStopWatch(milliseconds){
+    formatStopWatch(milliseconds) {
         const totalSeconds = Math.floor(milliseconds / 1000);
         const hours = Math.floor(totalSeconds / 3600);
         const minutes = Math.floor((totalSeconds % 3600) / 60);
         const seconds = totalSeconds % 60;
-        return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}:${String(milliseconds).padStart(2, '0')}`;
+        const millis = milliseconds % 1000; // Get the remaining milliseconds
+        return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}:${String(millis).padStart(2, '0')}`;
     }
+    
 
     // Display timer time
     displayTimer() {
@@ -45,4 +47,5 @@ class Timer{
     displayStopWatch(){
         return this.formatStopWatch(this.milliSec);
     }
+
 }

@@ -38,25 +38,24 @@
             <div class="clockContainer">
                 <div class="addTimeButtons">
                     <ul>
-                        <li><button class="buttons_addTime" type="button" id="Stopwatch">stop watch</button></li>
-                        <li><button class="buttons_addTime" type="button" id="addFiveMin">+5:00</button></li>
+                        <button class="menu-dropdown-btn" id="time-zone-button">Time Zone</button>
+
+                        <div id="time-zone-menu" class="menu time-zone-menu" hidden>
+                            <div class="time-zone-container">
+                                <button id="default" class="time-zone-button">Current</button>
+                                <button id="PST" class="time-zone-button">PST</button>
+                                <button id="MST" class="time-zone-button">MST</button>
+                                <button id="CST" class="time-zone-button">CST</button>
+                                <button id="EST" class="time-zone-button">EST</button>
+                                <button id="EET" class="time-zone-button">EET</button>
+                            </div>
+                        </div>
                     </ul>
                 </div>
 
                 <div class="mainTimeContainer" >
                     <input type="text" class="mainTimeDisplay" id="mainTimeDisplay" placeholder="HH:MM:SS" autocomplete="off">
-                    <button class="menu-dropdown-btn" id="time-zone-button">Time Zone</button>
-
-                    <div id="time-zone-menu" class="menu time-zone-menu" hidden>
-                        <div class="time-zone-container">
-                            <button id="default" class="time-zone-button">Current</button>
-                            <button id="PST" class="time-zone-button">PST</button>
-                            <button id="MST" class="time-zone-button">MST</button>
-                            <button id="CST" class="time-zone-button">CST</button>
-                            <button id="EST" class="time-zone-button">EST</button>
-                            <button id="EET" class="time-zone-button">EET</button>
-                        </div>
-                    </div>
+                 
                 </div>
 
 

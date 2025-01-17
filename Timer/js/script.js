@@ -1,4 +1,3 @@
-// Enum to handle valid timezones, set selectedZone with enum value from UI
 const TimeZone = {
     EST: "America/New_York",
     PST: "America/Los_Angeles",
@@ -38,9 +37,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const startButton = document.getElementById('start');
     const stopButton = document.getElementById('stop');
-    const addMin = document.getElementById('addMin');
 
-    if (stopButton && startButton && !timerRunning && !stopWatchRunning) {
+    if (stopButton && startButton && !timerRunning) {
         startButton.addEventListener('click', () => {
             const timeString = timerElement.value.trim();
 
@@ -55,12 +53,11 @@ document.addEventListener('DOMContentLoaded', () => {
             } else if (/^\d{3,4}$/.test(timeString)) {
                 seconds = parseInt(timeString.slice(-2), 10);
                 minutes = parseInt(timeString.slice(0, -2), 10);
-            } else if (/^\d{6}$/.test(timeString)) {
+            } else if (/^\d{5,6}$/.test(timeString)) {
                 seconds = parseInt(timeString.slice(-2), 10);
                 minutes = parseInt(timeString.slice(-4, -2), 10);
                 hours = parseInt(timeString.slice(0, -4), 10);
             } else {
-                console.log("Invalid format. Use HHMMSS, MMSS, MSS,, or M.");
                 return;
             }
 
@@ -80,17 +77,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Reset when countdown ends
                 countdownManager.startCountdown(timer.getMilliSec(), timerElement, () => {
                     countdownManager.stopCount(timerElement);
+
                 });
             }
         });
-
         stopButton.addEventListener('click', () => {
-            if (timerRunning && !stopWatchRunning) {
-                console.log("Stopping timer...");
+            if (timerRunning) {
                 timerRunning = false;
-
                 if (countdownManager) {
                     countdownManager.stopCount(timerElement);
+                    
                 }
             }
         });
@@ -106,17 +102,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	return !element.hidden;
 }
-
 document.getElementById('time-zone-button').addEventListener('click', () => {
 	toggle("time-zone-menu");
 	
 }); 
-
-
-// Helper function
 function calcTotalMilliSec(hours, min, sec) {
     return (hours * 3600 + min * 60 + sec) * 1000;
 }
+
 });
 
 

@@ -3,7 +3,6 @@ class CountDownManager {
         this.timer = timer;
         this.intervalId = null;
     }
-
     // Start the countdown
      startCountdown(timeInMs, mainTimeDisplay) {
         // Start the interval
@@ -19,29 +18,24 @@ class CountDownManager {
             }
         }, 1000);
     }
-
     startCountUp(timeInMs, mainTimeDisplay){
-
         this.intervalId = setInterval(() => {
            
-                timeInMs += 1;
-
+            timeInMs += 1;
                 // Update the UI with the new time
                 this.timer.milliSec = timeInMs;
-                mainTimeDisplay.value = this.timer.displayStopWatch();
-            
+            mainTimeDisplay.value = this.timer.displayStopWatch();
         }, 1);
     }
-
     // Stop the countdown manually
-     stopCount(mainTimeDisplay) {
+    stopCount(mainTimeDisplay) {
 
-        clearInterval(this.intervalId); // Stop the interval
-        this.intervalId = null; // Reset interval ID
-        
-        // Reset the display to its original state
-        mainTimeDisplay.value = ""; // Reset to default
-        console.log("Countdown finished!");
+        setInterval(() => {
+            mainTimeDisplay.value = "Time's Up!"
+        }, 1);
+        setTimeout(() => {
+            location.reload();
+        }, 1000)
+        mainTimeDisplay.value = ""; // Reset to defaul
     }
-
 }

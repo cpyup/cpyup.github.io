@@ -49,6 +49,22 @@ nav ul {
     padding-top: 20px;
 }
 
+
+
+.headerClockFrame {
+    border: 2px solid #ffffff; /* White border */
+    border-radius: 8px; /* Rounded corners */
+    padding: 10px; /* Space inside the border */
+    text-align: center; /* Center the text */
+    display: inline-block; /* Makes the frame wrap tightly */
+    width: 400px; /* Fixed width */
+    height: 80px; /* Fixed height */
+    line-height: 80px; /* Vertically center the text */
+    overflow: hidden; /* Prevents content from overflowing */
+}
+
+
+
 /* MAIN */
 
 .mainContainer {

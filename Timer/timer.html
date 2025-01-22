@@ -13,6 +13,8 @@
     <script src="js/TimerInput.js"></script>
     <script src="js/CountDownManager.js"></script>
     <script src="js/Timer.js"></script>
+    <script src="js/background.js"></script>
+    
     
     <script src="js/script.js"></script>
 </head>
@@ -27,7 +29,7 @@
                     <a href="https://www.yearup.org/" class="logo" target="_blank"><img src="./images/icons/NewYUU-logo.svg" alt="Year Up United Logo Link"></a>
                 </li>
                 <li>
-                    <p class="headerClock" id="headerClock"></p>
+                    <p class="headerClock headerClockFrame" id="headerClock"></p>
                 </li>
             </ul>
         </nav>
@@ -57,6 +59,8 @@
                     <input type="text" class="mainTimeDisplay" id="mainTimeDisplay" placeholder="HH:MM:SS" autocomplete="off">
                  
                 </div>
+
+
 
 
                 <div class="clockControls">
@@ -106,8 +110,12 @@
         </div>
         
         <footer class="bgButtonContainer">
-            <ul><button onclick="changeBackground('images/backgrounds/yuuClockBG1NoLogo.png')" class="bgButton1">BG1</button></ul>
-            <ul><button onclick="changeBackground('images/backgrounds/yuuClockBG2NoLogo.jpg')" class="bgButton2">BG2</button></ul>
+            <ul>
+                <button class="bgButton1">BG1</button>
+            </ul>
+            <ul>
+                <button class="bgButton2">BG2</button>
+            </ul>
         </footer>
     
     </main>

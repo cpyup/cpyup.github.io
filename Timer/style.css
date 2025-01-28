@@ -49,6 +49,22 @@ nav ul {
     padding-top: 20px;
 }
 
+
+
+.headerClockFrame {
+    border: 2px solid #ffffff; /* White border */
+    border-radius: 8px; /* Rounded corners */
+    padding: 10px; /* Space inside the border */
+    text-align: center; /* Center the text */
+    display: inline-block; /* Makes the frame wrap tightly */
+    width: 400px; /* Fixed width */
+    height: 80px; /* Fixed height */
+    line-height: 80px; /* Vertically center the text */
+    overflow: hidden; /* Prevents content from overflowing */
+}
+
+
+
 /* MAIN */
 
 .mainContainer {
@@ -72,7 +88,7 @@ nav ul {
     /* margin-left: 10%; TODO: ADD THIS ONCE PRESENTATION IS OVER */
 }
 
-.addTimeButtons ul{
+.time-zone-container ul{
     list-style: none;
     display: flex;
     justify-content: space-between;
@@ -80,19 +96,6 @@ nav ul {
     column-gap: 44px;
     padding: 0;
     margin: 0;
-}
-
-.buttons_addTime {
-    filter:drop-shadow(0px 3px 3px rgba(0,0,0,0.25));
-    background-color:#fe6500;
-    height:60px;
-    width:142px;
-    border-radius:84px;
-    font-family: 'Roboto';
-    color: #FFFFFF;
-    font-weight: 500;
-    font-style: normal;
-    font-size: 33px;
 }
 
 .mainTimeContainer

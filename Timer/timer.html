@@ -9,7 +9,14 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
     </style>
-    <script src="js/main.js" async></script>
+    <script src="js/clock.js"></script>
+    <script src="js/TimerInput.js"></script>
+    <script src="js/CountDownManager.js"></script>
+    <script src="js/Timer.js"></script>
+    <script src="js/background.js"></script>
+    
+    
+    <script src="js/script.js"></script>
 </head>
 <body> 
     <!-- Audio Preload -->
@@ -22,7 +29,7 @@
                     <a href="https://www.yearup.org/" class="logo" target="_blank"><img src="./images/icons/NewYUU-logo.svg" alt="Year Up United Logo Link"></a>
                 </li>
                 <li>
-                    <p class="headerClock" id="headerClock" onload="showTime()">00:00:00 PM EST</p>
+                    <p class="headerClock headerClockFrame" id="headerClock"></p>
                 </li>
             </ul>
         </nav>
@@ -31,18 +38,30 @@
     <main>
         <div class="mainContainer">
             <div class="clockContainer">
-                
                 <div class="addTimeButtons">
                     <ul>
-                        <li><button class="buttons_addTime" type="button" id="addThirtySec">+0:30</button></li>
-                        <li><button class="buttons_addTime" type="button" id="addMin">+1:00</button></li>
-                        <li><button class="buttons_addTime" type="button" id="addFiveMin">+5:00</button></li>
+                        <button class="menu-dropdown-btn" id="time-zone-button">Time Zone</button>
+
+                        <div id="time-zone-menu" class="menu time-zone-menu" hidden>
+                            <div class="time-zone-container">
+                                <button id="default" class="time-zone-button">Current</button>
+                                <button id="PST" class="time-zone-button">PST</button>
+                                <button id="MST" class="time-zone-button">MST</button>
+                                <button id="CST" class="time-zone-button">CST</button>
+                                <button id="EST" class="time-zone-button">EST</button>
+                                <button id="EET" class="time-zone-button">EET</button>
+                            </div>
+                        </div>
                     </ul>
                 </div>
 
                 <div class="mainTimeContainer" >
                     <input type="text" class="mainTimeDisplay" id="mainTimeDisplay" placeholder="HH:MM:SS" autocomplete="off">
+                 
                 </div>
+
+
+
 
                 <div class="clockControls">
                     <ul>
@@ -65,12 +84,14 @@
                                     </g>
                                 </g>
                             </svg>
+                            </button>
                         </li>
 
                         <li><button type="timerCtrl" class="stopTime" id="stop">
                             <svg width="46" height="46" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2C16.714 2 19.0711 2 20.5355 3.46447C22 4.92893 22 7.28595 22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12Z" fill="white"/>
                             </svg>
+                            </button>
                         </li>
                     </ul>
                 </div>
@@ -89,9 +110,14 @@
         </div>
         
         <footer class="bgButtonContainer">
-            <ul><button onclick="changeBackground('images/backgrounds/yuuClockBG1NoLogo.png')" class="bgButton1">BG1</button></ul>
-            <ul><button onclick="changeBackground('images/backgrounds/yuuClockBG2NoLogo.jpg')" class="bgButton2">BG2</button></ul>
+            <ul>
+                <button class="bgButton1">BG1</button>
+            </ul>
+            <ul>
+                <button class="bgButton2">BG2</button>
+            </ul>
         </footer>
+    
     </main>
 </body>
 </html>

@@ -1,17 +1,18 @@
-const timezones = Object.freeze({
-	PACIFIC: 'PST',
-	MOUNTAIN: 'MST',
-	CENTRAL: 'CST',
-	EASTERN: 'EST',
-});
 
-let selectedZone = timezones.EASTERN; // Currently selected timezone
-
-function showTime() {  
-    const now = new Date();
-    let time = now.toLocaleTimeString('en-US',{timeZone: selectedZone});
-    document.getElementById("headerClock").textContent = time;
-    setTimeout(showTime, 100);
+class Clock {
+    constructor(timeZone = this.getSystemTimeZone()) { // Default to system's time zone
+        this.timeZone = timeZone; // Set the timezone
+    }
+    
+    // Method to get the system's time zone
+     getSystemTimeZone() {
+        return Intl.DateTimeFormat().resolvedOptions().timeZone;
+    }
+     getTimeZone(systemTimeZone){
+        const now = new Date(); // Get the current date and time
+        return now.toLocaleTimeString('en-US', { timeZone: systemTimeZone});
+    }
 }
 
-showTime();
+
+

@@ -10,4 +10,5 @@ function loadScript(url)
 // Loading individual JS files
 loadScript('js/timerInput.js');
 loadScript('js/clock.js');
-loadScript('js/background.js')
+loadScript('js/background.js');
+loadScript('js/uiHelper.js');

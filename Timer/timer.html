@@ -22,7 +22,7 @@
                     <a href="https://www.yearup.org/" class="logo" target="_blank"><img src="./images/icons/NewYUU-logo.svg" alt="Year Up United Logo Link"></a>
                 </li>
                 <li>
-                    <p class="headerClock" id="headerClock" onload="showTime()">00:00:00 PM EST</p>
+                    <p class="headerClock" id="headerClock" onload="showTime()"></p>
                 </li>
             </ul>
         </nav>
@@ -34,9 +34,9 @@
                 
                 <div class="addTimeButtons">
                     <ul>
-                        <li><button class="buttons_addTime" type="button" id="addThirtySec">+0:30</button></li>
-                        <li><button class="buttons_addTime" type="button" id="addMin">+1:00</button></li>
-                        <li><button class="buttons_addTime" type="button" id="addFiveMin">+5:00</button></li>
+                        <li><button class="buttons_addTime" onclick="this.blur();" type="button" id="addThirtySec">+0:30</button></li>
+                        <li><button class="buttons_addTime" onclick="this.blur();" type="button" id="addMin">+1:00</button></li>
+                        <li><button class="buttons_addTime" onclick="this.blur();" type="button" id="addFiveMin">+5:00</button></li>
                     </ul>
                 </div>
 
@@ -47,7 +47,7 @@
                 <div class="clockControls">
                     <ul>
                         <!-- <li><button type="timerCtrl" class="targetTime" id="customTarget">Target</li> -->
-                        <li><button type="timerCtrl" class="startTime" id="start">
+                        <li><button type="timerCtrl" onclick="this.blur();" class="startTime" id="start">
                             <svg width="76" height="76" viewBox="-1 0 7 7" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         
                                 <title>play [#1003]</title>
@@ -67,7 +67,7 @@
                             </svg>
                         </li>
 
-                        <li><button type="timerCtrl" class="stopTime" id="stop">
+                        <li><button type="timerCtrl" onclick="this.blur();" class="stopTime" id="stop">
                             <svg width="46" height="46" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2C16.714 2 19.0711 2 20.5355 3.46447C22 4.92893 22 7.28595 22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12Z" fill="white"/>
                             </svg>
@@ -89,8 +89,8 @@
         </div>
         
         <footer class="bgButtonContainer">
-            <ul><button onclick="changeBackground('images/backgrounds/yuuClockBG1NoLogo.png')" class="bgButton1">BG1</button></ul>
-            <ul><button onclick="changeBackground('images/backgrounds/yuuClockBG2NoLogo.jpg')" class="bgButton2">BG2</button></ul>
+            <ul><button  onclick="changeBackground('images/backgrounds/yuuClockBG1NoLogo.png'); this.blur();" class="bgButton1">BG1</button></ul>
+            <ul><button onclick="changeBackground('images/backgrounds/yuuClockBG2NoLogo.jpg'); this.blur();" class="bgButton2">BG2</button></ul>
         </footer>
     </main>
 </body>

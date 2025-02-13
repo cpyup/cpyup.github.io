@@ -157,6 +157,11 @@ input[type="text"] {
     pointer-events: none;
 }
 
+.stopTime:active {
+    border: 0px solid #ffffff;
+    filter: brightness(100%);
+} 
+
 .stopTime {
     background-color:#fe6500;
     height:90px;

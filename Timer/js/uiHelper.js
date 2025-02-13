@@ -15,6 +15,7 @@ function hideAddButtons() {
    });
 }
 
+// Makes stop button inactive
 function deactivateStopButton() {
     const stopButton = document.getElementById('stop');
     stopButton.disabled = true;

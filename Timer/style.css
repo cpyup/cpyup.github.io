@@ -18,11 +18,11 @@ button:active {
     filter: brightness(80%);
 }
 
-/* button:focus {
+button:focus {
     border: 2px solid #ffffff;
     outline: none;
     box-shadow: none;
-} */
+} 
 
 /* HEADER */
 /* Header Elements */

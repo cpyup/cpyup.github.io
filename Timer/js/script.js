@@ -15,6 +15,7 @@ var timerRunning = false;
 var addMinutes;
 const soundIcon = document.getElementById('soundIcon');
 const muteIcon = document.getElementById('muteIcon');
+const mainTimeDisplay = document.getElementById('mainTimeDisplay');
 let isMuted = false;
 let alarmPlaying = false; // Keep track of whether the alarm is allowed to play
 var restartTime;
@@ -48,6 +49,7 @@ timerElement.addEventListener("keyup", function (event) {
         let targetTime = event.target.value;
         getTargetTimeInput(targetTime);
         startTimer();
+        mainTimeDisplay.disabled = true;
     }
 });
 
@@ -109,6 +111,15 @@ function pauseTimer() {
     }
 }
 
+function stopTimer() {
+    clearInterval(timerInterval);
+    // document.body.removeChild(timerElement);
+    //     resetClockDisplay();
+    
+    timerRunning = false;
+    console.log("Timer Running: " + timerRunning);
+  }
+
 function restartTimer() {
     stopTimer();
 
@@ -117,6 +128,7 @@ function restartTimer() {
 
 function startTimer() {
     timerRunning = true;
+    showAddButtons();
     console.log("timeRunning: " + timerRunning);
     const totalTime = remainingTime;
     timerInterval = setInterval(() => {

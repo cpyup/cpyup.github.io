@@ -1,10 +1,12 @@
 
 // Add Time Button Visibility
 function showAddButtons() {
-    const buttons = document.querySelectorAll('.addTimeButtons');
-    buttons.forEach(button => {
-        button.style.visibility = 'visible';
-    });
+    const ulElement = document.querySelector('.addTimeButtons ul'); // Target the <ul> inside .addTimeButtons
+    if (ulElement) {
+        ulElement.style.visibility = 'visible'; // Make it visible
+    } else {
+        console.error('Element .addTimeButtons ul not found.');
+    }
 }
 
 function hideAddButtons() {
@@ -24,3 +26,4 @@ function deactivateStopButton() {
 }
 
 deactivateStopButton();
+

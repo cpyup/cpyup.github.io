@@ -12,3 +12,4 @@ loadScript('js/timerInput.js');
 loadScript('js/clock.js');
 loadScript('js/background.js');
 loadScript('js/uiHelper.js');
+loadScript('js/script.js');
